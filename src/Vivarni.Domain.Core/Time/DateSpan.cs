@@ -2,8 +2,9 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
+using Vivarni.Domain.Core.Time.Exceptions;
 
-namespace Vivarni.Domain.Core
+namespace Vivarni.Domain.Core.Time
 {
     [JsonConverter(typeof(DateSpanConverter))]
     public class DateSpan

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Vivarni.Domain.Core
+namespace Vivarni.Domain.Core.Time
 {
     public interface IDateProvider
     {

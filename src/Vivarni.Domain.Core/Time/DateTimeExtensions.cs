@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Vivarni.Domain.Core.Util
+namespace Vivarni.Domain.Core.Time
 {
     public static class DateTimeExtensions
     {

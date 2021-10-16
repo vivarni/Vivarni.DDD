@@ -1,7 +1,7 @@
 ﻿using System;
 using Ardalis.Specification;
 
-namespace Vivarni.Domain.Core
+namespace Vivarni.Domain.Core.SpecificationExtensions
 {
     public static class SpecificationBuilderExtensions
     {

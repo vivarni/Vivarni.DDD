@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace Vivarni.Domain.Core
+namespace Vivarni.Domain.Core.Time
 {
     public class DateSpanConverter : JsonConverter<DateSpan>
     {
