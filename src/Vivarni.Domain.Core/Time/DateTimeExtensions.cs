@@ -4,6 +4,11 @@ namespace Vivarni.Domain.Core.Time
 {
     public static class DateTimeExtensions
     {
+        public static DateTime DateWithZeroTime(this DateTime @this)
+        {
+            return new DateTime(@this.Year, @this.Month, @this.Day);
+        }
+
         public static DateTime Add(this DateTime @this, DateSpan span)
         {
             if (span.Unit == DateSpan.DateSpanUnit.Day)

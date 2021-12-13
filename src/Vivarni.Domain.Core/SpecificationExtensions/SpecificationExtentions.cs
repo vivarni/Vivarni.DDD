@@ -17,7 +17,7 @@ namespace Vivarni.Domain.Core.SpecificationExtensions
         /// We use <see cref="ConditionalWeakTable"/>'s to attach caching option data to objects
         /// that implement <see cref="Specification{T}"/>.
         /// </summary>
-        private static readonly ConditionalWeakTable<object, CacheOptions> SpecificationCacheOptions = new();
+        private static readonly ConditionalWeakTable<object, CacheOptions> SpecificationCacheOptions = new ConditionalWeakTable<object, CacheOptions>();
 
         /// <summary>
         /// Sets the caching expiration timespan of the specification,
