@@ -2,14 +2,23 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <Version>0.0.2</Version>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <Version>0.0.3-alpha</Version>
     <PackageProjectUrl>https://github.com/vivarni/vivarni.domain</PackageProjectUrl>
     <RepositoryUrl>https://github.com/vivarni/vivarni.domain</RepositoryUrl>
     <Authors>Michaël Vittorelli</Authors>
     <PackageIcon>vivarni.png</PackageIcon>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <Description>Fundamental building blocks for creating domain layers in a DDD software design approach.</Description>
-    <Summary>Fundamental building blocks for creating domain layers in a DDD software design approach.</Summary>
+    <IncludeSymbols>true</IncludeSymbols>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <Summary>Fundamental building blocks for creating the domain layer in a DDD software design approach.</Summary>
+    <Description>
+      Fundamental building blocks for creating the domain layer in a DDD software design approach.
+      Contains interfaces for entities, aggregate roots, domain events and a generic repository for
+      aggregate root entities using the specification pattern from Ardalis.
+    </Description>
+    <PackageTags>ddd;domain driven design;specification;aggregate</PackageTags>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
