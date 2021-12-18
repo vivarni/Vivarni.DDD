@@ -12,12 +12,7 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <Summary>Fundamental building blocks for creating the domain layer in a DDD software design approach.</Summary>
-    <Description>
-      Fundamental building blocks for creating the domain layer in a DDD software design approach.
-      Contains interfaces for entities, aggregate roots, domain events and a generic repository for
-      aggregate root entities using the specification pattern from Ardalis.
-    </Description>
+    <Description>Fundamental building blocks for creating the domain layer in a DDD software design approach. Contains interfaces for entities, aggregate roots, domain events and a generic repository for aggregate root entities using the specification pattern from Ardalis.</Description>
     <PackageTags>ddd;domain driven design;specification;aggregate</PackageTags>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>

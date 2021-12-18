@@ -14,8 +14,8 @@ namespace Vivarni.Domain.Core.SpecificationExtensions
     public static class SpecificationExtentions
     {
         /// <summary>
-        /// We use <see cref="ConditionalWeakTable"/>'s to attach caching option data to objects
-        /// that implement <see cref="Specification{T}"/>.
+        /// We use a <see cref="System.Runtime.CompilerServices.ConditionalWeakTable{TKey, TValue}"/>
+        /// to attach caching option data to objects that implement <see cref="Specification{T}"/>.
         /// </summary>
         private static readonly ConditionalWeakTable<object, CacheOptions> SpecificationCacheOptions = new ConditionalWeakTable<object, CacheOptions>();
 
@@ -38,7 +38,7 @@ namespace Vivarni.Domain.Core.SpecificationExtensions
         }
 
         /// <summary>
-        /// We need reference types in order to be able to work with <see cref="ConditionalWeakTable"/>'s.
+        /// We need reference types in order to be able to work with ConditionalWeakTable's.
         /// This private class is a workaround because <see cref="TimeSpan"/> is a struct :-)
         /// </summary>
         private class CacheOptions

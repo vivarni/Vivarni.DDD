@@ -124,7 +124,7 @@ namespace Vivarni.Domain.Infrastructure
             await _ctx.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<T> FirstAsync<Spec>(Spec spec, CancellationToken cancellationToken = default) where Spec : ISpecification<T>, ISingleResultSpecification
+        public async Task<T> FirstAsync(ISingleResultSpecification<T> spec, CancellationToken cancellationToken = default)
         {
             var specificationResult = ApplySpecification(spec);
             var sw = Stopwatch.StartNew();
@@ -144,7 +144,7 @@ namespace Vivarni.Domain.Infrastructure
             return result;
         }
 
-        public async Task<T> FirstOrDefaultAsync<Spec>(Spec spec, CancellationToken cancellationToken = default) where Spec : ISpecification<T>, ISingleResultSpecification
+        public async Task<T> FirstOrDefaultAsync(ISingleResultSpecification<T> spec, CancellationToken cancellationToken = default)
         {
             var specificationResult = ApplySpecification(spec);
             var sw = Stopwatch.StartNew();
@@ -164,7 +164,7 @@ namespace Vivarni.Domain.Infrastructure
             return result;
         }
 
-        public async Task<T> SingleAsync<Spec>(Spec spec, CancellationToken cancellationToken = default) where Spec : ISingleResultSpecification, ISpecification<T>
+        public async Task<T> SingleAsync(ISingleResultSpecification<T> spec, CancellationToken cancellationToken = default)
         {
             var specificationResult = ApplySpecification(spec);
             var sw = Stopwatch.StartNew();
@@ -184,7 +184,7 @@ namespace Vivarni.Domain.Infrastructure
             return result;
         }
 
-        public virtual async Task<T> SingleOrDefaultAsync<Spec>(Spec spec, CancellationToken cancellationToken = default) where Spec : ISingleResultSpecification, ISpecification<T>
+        public virtual async Task<T> SingleOrDefaultAsync(ISingleResultSpecification<T> spec, CancellationToken cancellationToken = default)
         {
             var specificationResult = ApplySpecification(spec);
             var sw = Stopwatch.StartNew();
