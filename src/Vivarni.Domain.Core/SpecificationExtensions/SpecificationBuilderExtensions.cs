@@ -3,6 +3,9 @@ using Ardalis.Specification;
 
 namespace Vivarni.Domain.Core.SpecificationExtensions
 {
+    /// <summary>
+    /// Provides extension methods on the "Ardalis.Specification" nuget package.
+    /// </summary>
     public static class SpecificationBuilderExtensions
     {
         /// <summary>

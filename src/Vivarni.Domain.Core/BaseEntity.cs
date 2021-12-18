@@ -9,6 +9,7 @@ namespace Vivarni.Domain.Core
     /// </summary>
     public abstract class BaseEntity : IEntity<long>
     {
+        /// <inheritdoc/>
         public virtual long Id { get; set; }
     }
 }
