@@ -6,7 +6,7 @@
     <PackageProjectUrl>https://github.com/vivarni/vivarni.domain</PackageProjectUrl>
     <RepositoryUrl>https://github.com/vivarni/vivarni.domain</RepositoryUrl>
     <Authors>Michaël Vittorelli</Authors>
-    <PackageIcon>../../doc/vivarni.png</PackageIcon>
+    <PackageIcon>vivarni.png</PackageIcon>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <Description>Fundamental building blocks for creating domain layers in a DDD software design approach.</Description>
     <Summary>Fundamental building blocks for creating domain layers in a DDD software design approach.</Summary>
@@ -15,6 +15,10 @@
 
   <ItemGroup>
     <PackageReference Include="Ardalis.Specification" Version="5.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../../doc/vivarni.png" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
 </Project>
