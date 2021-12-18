@@ -10,7 +10,7 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <Description>Fundamental building blocks for creating domain layers in a DDD software design approach.</Description>
     <Summary>Fundamental building blocks for creating domain layers in a DDD software design approach.</Summary>
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
