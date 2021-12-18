@@ -9,10 +9,11 @@
     <RepositoryUrl>https://github.com/vivarni/vivarni.domain</RepositoryUrl>
     <Authors>Michaël Vittorelli</Authors>
     <PackageIcon>vivarni.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <Description>Fundamental building blocks for creating the domain layer in a DDD software design approach. Contains interfaces for entities, aggregate roots, domain events and a generic repository for aggregate root entities using the specification pattern from Ardalis.</Description>
+    <Description>Fundamental building blocks for creating the domain layer in a DDD software design approach.</Description>
     <PackageTags>ddd;domain driven design;specification;aggregate</PackageTags>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
@@ -23,6 +24,7 @@
 
   <ItemGroup>
     <None Include="../../doc/vivarni.png" Pack="true" PackagePath="\"/>
+    <None Include="../../README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
 </Project>
