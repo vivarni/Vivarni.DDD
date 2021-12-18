@@ -2,12 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
+    <PackageProjectUrl>https://github.com/vivarni/vivarni.domain</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/vivarni/vivarni.domain</RepositoryUrl>
+    <Authors>Michaël Vittorelli</Authors>
+    <PackageIcon>../../doc/vivarni.png</PackageIcon>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <Description>Fundamental building blocks for creating domain layers in a DDD software design approach.</Description>
+    <Summary>Fundamental building blocks for creating domain layers in a DDD software design approach.</Summary>
+    <LangVersion>10.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ardalis.Specification" Version="5.0.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Ardalis.Specification" Version="5.2.0" />
   </ItemGroup>
 
 </Project>
