@@ -6,6 +6,13 @@ using Ardalis.Specification;
 
 namespace Vivarni.Domain.Core.Repositories
 {
+    /// <summary>
+    /// <para>
+    /// A <see cref="IGenericRepository{T}" /> can be used to query and save instances of <typeparamref name="T" />.
+    /// An <see cref="ISpecification{T}"/> (or derived) is used to encapsulate the LINQ queries against the database.
+    /// </para>
+    /// </summary>
+    /// <typeparam name="T">The type of entity being operated on by this repository.</typeparam>
     public interface IGenericRepository<T> where T : IAggregateRoot
     {
         /// <summary>
@@ -40,7 +47,13 @@ namespace Vivarni.Domain.Core.Repositories
         /// The task result contains a <see cref="List{T}" /> that contains elements from the input sequence.
         /// </returns>
         Task<IReadOnlyList<T>> ListAsync(ISpecification<T> specification, CancellationToken cancellationToken = default);
-        
+
+        /// <summary>
+        /// Returns an <see cref="IEnumerable{T}"/> which allows to stream entities from the
+        /// database. Only makes sence when the encapsulated <paramref name="specification"/>
+        /// is configured not to track its entities.
+        /// </summary>
+        /// <param name="specification">The encapsulated query logic.</param>
         IEnumerable<T> Enumerate(ISpecification<T> specification);
 
         /// <summary>

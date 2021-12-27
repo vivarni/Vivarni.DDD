@@ -12,6 +12,12 @@ namespace Vivarni.Domain.Core
     public interface IDomainEventHandler<in TEvent> : IDomainEventHandler
         where TEvent : IDomainEvent
     {
+        /// <summary>
+        /// Asynchronously handles the <paramref name="domainEvent"/>.
+        /// </summary>
+        /// <param name="domainEvent">Domain event to be handled.</param>
+        /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         Task HandleAsync(TEvent domainEvent, CancellationToken cancellationToken);
     }
 }

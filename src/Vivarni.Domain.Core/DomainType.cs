@@ -1,5 +1,9 @@
 ﻿namespace Vivarni.Domain.Core
 {
+    /// <summary>
+    /// Base class for enum-like classes which can be extended with domain bahaviour/logic.
+    /// See the docs for examples.
+    /// </summary>
     public abstract class DomainType
     {
         /// <summary>

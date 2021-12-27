@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Vivarni.Domain.Core
 {
+    /// <inheritdoc/>
     public abstract class DomainType<T> : DomainType
         where T : DomainType
     {
