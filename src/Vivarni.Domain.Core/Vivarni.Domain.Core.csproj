@@ -5,11 +5,12 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <Version>0.0.3</Version>
-    <PackageProjectUrl>https://github.com/vivarni/vivarni.domain</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/vivarni/vivarni.domain</RepositoryUrl>
     <Authors>Michaël Vittorelli</Authors>
+    <RepositoryUrl>https://github.com/vivarni/vivarni.domain</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/vivarni/vivarni.domain</PackageProjectUrl>
     <PackageIcon>vivarni.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
