@@ -18,7 +18,5 @@
     ///  
     /// </summary>
     /// <see href="https://lostechies.com/jimmybogard/2008/05/21/entities-value-objects-aggregates-and-roots/"/>
-    public interface IAggregateRoot
-    {
-    }
+    public interface IAggregateRoot { }
 }

@@ -108,10 +108,28 @@ namespace Vivarni.Domain.Core.Repositories
         /// <exception cref="InvalidOperationException">The encapsulated query logic of <paramref name="specification"/> yields more than one element.</exception>
         Task<T> SingleOrDefaultAsync(ISingleResultSpecification<T> specification, CancellationToken cancellationToken = default);
 
+        /// <summary>
+        /// Asynchronously adds the provided <paramref name="entity"/> to the database.
+        /// </summary>
+        /// <param name="entity">The entity to add.</param>
+        /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
+        /// <returns>A task that represents the added entity.</returns>
         Task<T> AddAsync(T entity, CancellationToken cancellationToken = default);
 
+        /// <summary>
+        /// Asynchronously updates the provided <paramref name="entity"/> in the database.
+        /// </summary>
+        /// <param name="entity">The entity to update.</param>
+        /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         Task UpdateAsync(T entity, CancellationToken cancellationToken = default);
 
+        /// <summary>
+        /// Asynchronously removes the provided <paramref name="entity"/> from the database.
+        /// </summary>
+        /// <param name="entity">The entity to delete.</param>
+        /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         Task DeleteAsync(T entity, CancellationToken cancellationToken = default);
     }
 }
