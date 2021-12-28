@@ -29,17 +29,14 @@ jobs:
       - name: Test
         run: dotnet test --no-build --verbosity normal
 
-      # publish new version to nuget
-      - name: publish on version change
-        id: publish_nuget
+      # publish Core on version change
+      - name: publish Core on version change
+        id: publish_core
         if: success()
-        uses: Clivar/publish-nuget@main
+        uses: Clivar/publish-nuget@master
         with:
           # Filepath of the project to be packaged, relative to root of repository
-          PROJECT_FILE_PATH: "**/*.csproj"
-
-          # Path to store all generated nuget packages, relative to root of repository
-          PACKAGE_PATH: artifacts/
+          PROJECT_FILE_PATH: src/Vivarni.Domain.Core/Vivarni.Domain.Core.csproj
 
           # NuGet package id, used for version detection & defaults to project name
           # PACKAGE_NAME: Core
@@ -59,11 +56,41 @@ jobs:
           # Format of the git tag, [*] gets replaced with actual version
           TAG_FORMAT: v*
 
-          # API key to authenticate with NuGet server, or a token, issued for GITHUB_USER if you use GPR
+          # API key to authenticate with NuGet server
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
 
           # NuGet server uri hosting the packages, defaults to https://api.nuget.org
           # NUGET_SOURCE: https://api.nuget.org
 
-          # Flag to throw an error when trying to publish an existing version of a package
-          # THOW_ERROR_IF_VERSION_EXISTS: false
+      # publish Infrastructure on version change
+      - name: publish Infrastructure on version change
+        id: publish_infrastructure
+        if: success()
+        uses: Clivar/publish-nuget@master
+        with:
+          # Filepath of the project to be packaged, relative to root of repository
+          PROJECT_FILE_PATH: src/Vivarni.Domain.Infrastructure/Vivarni.Domain.Infrastructure.csproj
+
+          # NuGet package id, used for version detection & defaults to project name
+          # PACKAGE_NAME: Core
+
+          # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
+          # VERSION_FILE_PATH: Directory.Build.props
+
+          # Regex pattern to extract version info in a capturing group
+          VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
+
+          # Useful with external providers like Nerdbank.GitVersioning, ignores VERSION_FILE_PATH & VERSION_REGEX
+          # VERSION_STATIC: 1.0.0
+
+          # Flag to toggle git tagging, enabled by default
+          # TAG_COMMIT: true
+
+          # Format of the git tag, [*] gets replaced with actual version
+          TAG_FORMAT: v*
+
+          # API key to authenticate with NuGet server
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+
+          # NuGet server uri hosting the packages, defaults to https://api.nuget.org
+          # NUGET_SOURCE: https://api.nuget.org
