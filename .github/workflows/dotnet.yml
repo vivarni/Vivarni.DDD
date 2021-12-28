@@ -31,7 +31,7 @@ jobs:
 
       # publish Core on version change
       - name: publish Core on version change
-        id: publish_nuget
+        id: publish_core
         if: success()
         uses: rohith/publish-nuget@v2
         with:
@@ -67,7 +67,7 @@ jobs:
 
       # publish Infrastructure on version change
       - name: publish Infrastructure on version change
-        id: publish_nuget
+        id: publish_infrastructure
         if: success()
         uses: rohith/publish-nuget@v2
         with:
