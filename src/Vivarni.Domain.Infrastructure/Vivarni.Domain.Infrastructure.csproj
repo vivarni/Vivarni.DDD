@@ -4,7 +4,7 @@
 		<TargetFramework>net5.0</TargetFramework>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-		<Version>0.0.3</Version>
+		<Version>0.0.4</Version>
 		<Authors>Michaël Vittorelli</Authors>
 		<RepositoryUrl>https://github.com/vivarni/vivarni.domain</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/vivarni/vivarni.domain</PackageProjectUrl>
