@@ -2,66 +2,101 @@ name: .NET
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
-    
-    # dotnet restore
-    - name: Restore dependencies
-      run: dotnet restore
-    
-    # dotnet build
-    - name: Build
-      run: dotnet build --no-restore
-    
-    # dotnet test
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
-    
-    # publish on version change
-    - name: publish on version change
-      id: publish_nuget
-      if: success()
-      uses: rohith/publish-nuget@v2
-      with:
-        # Filepath of the project to be packaged, relative to root of repository
-        PROJECT_FILE_PATH: src/Vivarni.Domain.Core/Vivarni.Domain.Core.csproj
-        
-        # NuGet package id, used for version detection & defaults to project name
-        # PACKAGE_NAME: Core
-        
-        # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
-        # VERSION_FILE_PATH: Directory.Build.props
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
 
-        # Regex pattern to extract version info in a capturing group
-        VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
-        
-        # Useful with external providers like Nerdbank.GitVersioning, ignores VERSION_FILE_PATH & VERSION_REGEX
-        # VERSION_STATIC: 1.0.0
+      # dotnet restore
+      - name: Restore dependencies
+        run: dotnet restore
 
-        # Flag to toggle git tagging, enabled by default
-        # TAG_COMMIT: true
+      # dotnet build
+      - name: Build
+        run: dotnet build --no-restore
 
-        # Format of the git tag, [*] gets replaced with actual version
-        TAG_FORMAT: v*
+      # dotnet test
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
 
-        # API key to authenticate with NuGet server
-        NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+      # publish Core on version change
+      - name: publish Core on version change
+        id: publish_nuget
+        if: success()
+        uses: rohith/publish-nuget@v2
+        with:
+          # Filepath of the project to be packaged, relative to root of repository
+          PROJECT_FILE_PATH: src/Vivarni.Domain.Core/Vivarni.Domain.Core.csproj
 
-        # NuGet server uri hosting the packages, defaults to https://api.nuget.org
-        # NUGET_SOURCE: https://api.nuget.org
+          # NuGet package id, used for version detection & defaults to project name
+          # PACKAGE_NAME: Core
 
-        # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
-        INCLUDE_SYMBOLS: true
+          # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
+          # VERSION_FILE_PATH: Directory.Build.props
+
+          # Regex pattern to extract version info in a capturing group
+          VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
+
+          # Useful with external providers like Nerdbank.GitVersioning, ignores VERSION_FILE_PATH & VERSION_REGEX
+          # VERSION_STATIC: 1.0.0
+
+          # Flag to toggle git tagging, enabled by default
+          # TAG_COMMIT: true
+
+          # Format of the git tag, [*] gets replaced with actual version
+          TAG_FORMAT: v*
+
+          # API key to authenticate with NuGet server
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+
+          # NuGet server uri hosting the packages, defaults to https://api.nuget.org
+          # NUGET_SOURCE: https://api.nuget.org
+
+          # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
+          INCLUDE_SYMBOLS: true
+
+      # publish Infrastructure on version change
+      - name: publish Infrastructure on version change
+        id: publish_nuget
+        if: success()
+        uses: rohith/publish-nuget@v2
+        with:
+          # Filepath of the project to be packaged, relative to root of repository
+          PROJECT_FILE_PATH: src/Vivarni.Domain.Infrastructure/Vivarni.Domain.Infrastructure.csproj
+
+          # NuGet package id, used for version detection & defaults to project name
+          # PACKAGE_NAME: Core
+
+          # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
+          # VERSION_FILE_PATH: Directory.Build.props
+
+          # Regex pattern to extract version info in a capturing group
+          VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
+
+          # Useful with external providers like Nerdbank.GitVersioning, ignores VERSION_FILE_PATH & VERSION_REGEX
+          # VERSION_STATIC: 1.0.0
+
+          # Flag to toggle git tagging, enabled by default
+          # TAG_COMMIT: true
+
+          # Format of the git tag, [*] gets replaced with actual version
+          TAG_FORMAT: v*
+
+          # API key to authenticate with NuGet server
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+
+          # NuGet server uri hosting the packages, defaults to https://api.nuget.org
+          # NUGET_SOURCE: https://api.nuget.org
+
+          # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
+          INCLUDE_SYMBOLS: true
