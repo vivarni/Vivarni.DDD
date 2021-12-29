@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Vivarni.Domain.Core;
+using Vivarni.DDD.Core;
 
-namespace Vivarni.Domain.Infrastructure.DomainEvents
+namespace Vivarni.DDD.Infrastructure.DomainEvents
 {
     /// <summary>
     /// A broker that publishes domain events to domain event handlers.

@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31624.102
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivarni.Domain.Infrastructure", "src\Vivarni.Domain.Infrastructure\Vivarni.Domain.Infrastructure.csproj", "{14636973-4861-4654-AE07-C57EAABD34D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivarni.DDD.Infrastructure", "src\Vivarni.DDD.Infrastructure\Vivarni.DDD.Infrastructure.csproj", "{14636973-4861-4654-AE07-C57EAABD34D0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivarni.Domain.Core", "src\Vivarni.Domain.Core\Vivarni.Domain.Core.csproj", "{D71D1FBF-86E2-48D7-8532-621FC63076C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivarni.DDD.Core", "src\Vivarni.DDD.Core\Vivarni.DDD.Core.csproj", "{D71D1FBF-86E2-48D7-8532-621FC63076C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

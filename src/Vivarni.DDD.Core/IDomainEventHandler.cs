@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace Vivarni.Domain.Core
+namespace Vivarni.DDD.Core
 {
     /// <summary>
     /// Handler for executing domain events applied to an aggregate root or other domain entity instance.

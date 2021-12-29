@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Vivarni.Domain.Core
+namespace Vivarni.DDD.Core
 {
     /// <inheritdoc/>
     public abstract class DomainType<T> : DomainType

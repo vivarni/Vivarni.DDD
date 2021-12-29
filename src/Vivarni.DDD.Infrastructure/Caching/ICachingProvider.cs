@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Vivarni.Domain.Infrastructure.Caching
+namespace Vivarni.DDD.Infrastructure.Caching
 {
     public interface ICachingProvider
     {

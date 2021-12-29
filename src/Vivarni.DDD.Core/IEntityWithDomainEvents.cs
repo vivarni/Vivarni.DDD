@@ -1,7 +1,7 @@
 ﻿using Ardalis.Specification;
 using System.Collections.Generic;
 
-namespace Vivarni.Domain.Core
+namespace Vivarni.DDD.Core
 {
     /// <summary>
     /// An entity which is capable of carrying domain events.

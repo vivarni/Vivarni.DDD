@@ -28,6 +28,6 @@
 		<None Include="../../doc/icon.png" Pack="true" Visible="false" PackagePath="\" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\Vivarni.Domain.Core\Vivarni.Domain.Core.csproj" />
+	  <ProjectReference Include="..\Vivarni.DDD.Core\Vivarni.DDD.Core.csproj" />
 	</ItemGroup>
 </Project>

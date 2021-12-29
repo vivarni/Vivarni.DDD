@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Ardalis.Specification;
 
-namespace Vivarni.Domain.Core.Repositories
+namespace Vivarni.DDD.Core.Repositories
 {
     /// <summary>
     /// <para>

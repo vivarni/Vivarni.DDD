@@ -1,4 +1,4 @@
-﻿namespace Vivarni.Domain.Core
+﻿namespace Vivarni.DDD.Core
 {
     /// <summary>
     /// Base class for enum-like classes which can be extended with domain bahaviour/logic.

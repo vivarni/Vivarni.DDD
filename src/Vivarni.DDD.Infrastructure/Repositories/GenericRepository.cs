@@ -8,12 +8,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Vivarni.Domain.Core;
-using Vivarni.Domain.Core.Repositories;
-using Vivarni.Domain.Core.SpecificationExtensions;
-using Vivarni.Domain.Infrastructure.Caching;
+using Vivarni.DDD.Core;
+using Vivarni.DDD.Core.Repositories;
+using Vivarni.DDD.Core.SpecificationExtensions;
+using Vivarni.DDD.Infrastructure.Caching;
 
-namespace Vivarni.Domain.Infrastructure
+namespace Vivarni.DDD.Infrastructure
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class, IAggregateRoot
     {

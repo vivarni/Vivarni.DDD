@@ -1,4 +1,4 @@
-﻿namespace Vivarni.Domain.Core
+﻿namespace Vivarni.DDD.Core
 {
     /// <summary>
     /// An event is something that has happened in the past. A domain event is, something that

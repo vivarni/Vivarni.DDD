@@ -1,7 +1,7 @@
 ﻿using System;
 using Ardalis.Specification;
 
-namespace Vivarni.Domain.Core.SpecificationExtensions
+namespace Vivarni.DDD.Core.SpecificationExtensions
 {
     /// <summary>
     /// Provides extension methods on the "Ardalis.Specification" nuget package.

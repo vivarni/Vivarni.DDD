@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Ardalis.Specification;
 
-namespace Vivarni.Domain.Core.SpecificationExtensions
+namespace Vivarni.DDD.Core.SpecificationExtensions
 {
     /// <summary>
     /// Extension methods for <see cref="Ardalis.Specification"/> which allows to configure the

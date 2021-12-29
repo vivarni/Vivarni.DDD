@@ -1,4 +1,4 @@
-﻿namespace Vivarni.Domain.Core
+﻿namespace Vivarni.DDD.Core
 {
     /// <summary>
     /// Marker interface to mark aggregate root entities.
