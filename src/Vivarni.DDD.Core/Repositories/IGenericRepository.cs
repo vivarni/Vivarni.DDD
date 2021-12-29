@@ -78,7 +78,8 @@ namespace Vivarni.DDD.Core.Repositories
         /// A task that represents the asynchronous operation. The task result contains the first
         /// element that matches the encapsulated query logic.
         /// </returns>
-        Task<T> FirstAsync(ISingleResultSpecification<T> specification, CancellationToken cancellationToken = default);
+        Task<T> FirstAsync<Spec>(Spec specification, CancellationToken cancellationToken = default)
+            where Spec : ISpecification<T>, ISingleResultSpecification;
 
         /// <summary>
         /// Asynchronously returns the first entity (of <typeparamref name="T" />) of a sequence that matches the
@@ -91,7 +92,8 @@ namespace Vivarni.DDD.Core.Repositories
         /// A task that represents the asynchronous operation. The task result contains <c>default</c>(<typeparamref name="T"/>) if
         /// the encapsulated query yields no results; otherwise, the first element that matches the encapsulated query logic.
         /// </returns>
-        Task<T> FirstOrDefaultAsync(ISingleResultSpecification<T> specification, CancellationToken cancellationToken = default);
+        Task<T> FirstOrDefaultAsync<Spec>(Spec specification, CancellationToken cancellationToken = default)
+            where Spec : ISpecification<T>, ISingleResultSpecification;
 
         /// <summary>
         /// Asynchronously returns the only entity (of <typeparamref name="T" />) of a sequence that matches the
@@ -105,7 +107,8 @@ namespace Vivarni.DDD.Core.Repositories
         /// element in source that matches the encapsulated query logic.
         /// </returns>
         /// <exception cref="InvalidOperationException">The encapsulated query logic of <paramref name="specification"/> yields more than one element.</exception>
-        Task<T> SingleAsync(ISingleResultSpecification<T> specification, CancellationToken cancellationToken = default);
+        Task<T> SingleAsync<Spec>(Spec specification, CancellationToken cancellationToken = default)
+            where Spec : ISpecification<T>, ISingleResultSpecification;
 
         /// <summary>
         /// Asynchronously returns the only entity (of <typeparamref name="T" />) of a sequence that matches the
@@ -119,7 +122,8 @@ namespace Vivarni.DDD.Core.Repositories
         /// the encapsulated query yields no results; otherwise, the only element that matches the encapsulated query logic.
         /// </returns>
         /// <exception cref="InvalidOperationException">The encapsulated query logic of <paramref name="specification"/> yields more than one element.</exception>
-        Task<T> SingleOrDefaultAsync(ISingleResultSpecification<T> specification, CancellationToken cancellationToken = default);
+        Task<T> SingleOrDefaultAsync<Spec>(Spec specification, CancellationToken cancellationToken = default)
+            where Spec : ISpecification<T>, ISingleResultSpecification;
 
         /// <summary>
         /// Asynchronously adds the provided <paramref name="entity"/> to the database.
