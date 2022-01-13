@@ -114,7 +114,6 @@ namespace Vivarni.DDD.Infrastructure
 
         public virtual async Task UpdateAsync(T entity, CancellationToken cancellationToken = default)
         {
-            _ctx.Entry(entity).State = EntityState.Modified;
             await _ctx.SaveChangesAsync(cancellationToken);
         }
 
