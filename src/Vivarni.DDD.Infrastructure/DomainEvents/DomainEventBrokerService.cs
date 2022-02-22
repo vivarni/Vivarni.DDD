@@ -44,6 +44,7 @@ namespace Vivarni.DDD.Infrastructure.DomainEvents
         /// </summary>
         /// <typeparam name="TEvent">The type of the domain event.</typeparam>
         /// <param name="domainEvent">The domain event instance to execute.</param>
+        /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
         private async Task PublishAsync<TEvent>(TEvent domainEvent, CancellationToken cancellationToken)
             where TEvent : class, IDomainEvent
         {

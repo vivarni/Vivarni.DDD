@@ -15,6 +15,7 @@ using Vivarni.DDD.Infrastructure.Caching;
 
 namespace Vivarni.DDD.Infrastructure
 {
+    /// <inheritdoc cref="IGenericRepository{T}"/>
     public class GenericRepository<T> : IGenericRepository<T> where T : class, IAggregateRoot
     {
         internal readonly DbContext _ctx;
@@ -30,6 +31,9 @@ namespace Vivarni.DDD.Infrastructure
         private readonly ILogger<GenericRepository<T>> _logger;
         private readonly ICachingProvider _cacheProvider;
 
+        /// <summary>
+        /// Creates a new instance of this class.
+        /// </summary>
         public GenericRepository(DbContext ctx, ILogger<GenericRepository<T>> logger, ICachingProvider cacheProvider)
         {
             _ctx = ctx;
@@ -37,6 +41,7 @@ namespace Vivarni.DDD.Infrastructure
             _cacheProvider = cacheProvider;
         }
 
+        /// <inheritdoc/>
         public virtual async Task<T> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken = default)
         {
             var sw = Stopwatch.StartNew();
@@ -46,6 +51,7 @@ namespace Vivarni.DDD.Infrastructure
             return result;
         }
 
+        /// <inheritdoc/>
         public async Task<IReadOnlyList<T>> ListAsync(CancellationToken cancellationToken = default)
         {
             var sw = Stopwatch.StartNew();
@@ -55,6 +61,7 @@ namespace Vivarni.DDD.Infrastructure
             return result;
         }
 
+        /// <inheritdoc/>
         public async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec, CancellationToken cancellationToken = default)
         {
             var specificationResult = ApplySpecification(spec);
@@ -75,6 +82,7 @@ namespace Vivarni.DDD.Infrastructure
             return result;
         }
 
+        /// <inheritdoc/>
         public IEnumerable<T> Enumerate(ISpecification<T> spec)
         {
             if (spec.CacheEnabled)
@@ -84,6 +92,7 @@ namespace Vivarni.DDD.Infrastructure
             return specificationResult.AsEnumerable<T>();
         }
 
+        /// <inheritdoc/>
         public async Task<int> CountAsync(ISpecification<T> spec, CancellationToken cancellationToken = default)
         {
             var specificationResult = ApplySpecification(spec);
@@ -104,6 +113,7 @@ namespace Vivarni.DDD.Infrastructure
             return result;
         }
 
+        /// <inheritdoc/>
         public virtual async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
         {
             await _ctx.Set<T>().AddAsync(entity, cancellationToken);
@@ -112,17 +122,20 @@ namespace Vivarni.DDD.Infrastructure
             return entity;
         }
 
+        /// <inheritdoc/>
         public virtual async Task UpdateAsync(T entity, CancellationToken cancellationToken = default)
         {
             await _ctx.SaveChangesAsync(cancellationToken);
         }
 
+        /// <inheritdoc/>
         public virtual async Task DeleteAsync(T entity, CancellationToken cancellationToken = default)
         {
             _ctx.Set<T>().Remove(entity);
             await _ctx.SaveChangesAsync(cancellationToken);
         }
 
+        /// <inheritdoc/>
         public async Task<T> FirstAsync<Spec>(Spec spec, CancellationToken cancellationToken = default)
             where Spec : ISpecification<T>, ISingleResultSpecification
         {
@@ -144,6 +157,7 @@ namespace Vivarni.DDD.Infrastructure
             return result;
         }
 
+        /// <inheritdoc/>
         public async Task<T> FirstOrDefaultAsync<Spec>(Spec spec, CancellationToken cancellationToken = default)
             where Spec : ISpecification<T>, ISingleResultSpecification
         {
@@ -165,6 +179,7 @@ namespace Vivarni.DDD.Infrastructure
             return result;
         }
 
+        /// <inheritdoc/>
         public async Task<T> SingleAsync<Spec>(Spec spec, CancellationToken cancellationToken = default)
             where Spec : ISpecification<T>, ISingleResultSpecification
         {
@@ -186,6 +201,7 @@ namespace Vivarni.DDD.Infrastructure
             return result;
         }
 
+        /// <inheritdoc/>
         public virtual async Task<T> SingleOrDefaultAsync<Spec>(Spec spec, CancellationToken cancellationToken = default)
             where Spec : ISpecification<T>, ISingleResultSpecification
         {
@@ -207,12 +223,14 @@ namespace Vivarni.DDD.Infrastructure
             return result;
         }
 
+        /// <inheritdoc/>
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)
         {
             var evaluator = SpecificationEvaluator.Default;
             return evaluator.GetQuery(_ctx.Set<T>().AsQueryable(), spec);
         }
 
+        /// <inheritdoc/>
         private string SpecToString(ISpecification<T> spec)
         {
             // TODO : Add more usefull information..
