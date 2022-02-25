@@ -136,8 +136,7 @@ namespace Vivarni.DDD.Infrastructure
         }
 
         /// <inheritdoc/>
-        public async Task<T> FirstAsync<Spec>(Spec spec, CancellationToken cancellationToken = default)
-            where Spec : ISpecification<T>, ISingleResultSpecification
+        public async Task<T> FirstAsync(ISpecification<T> spec, CancellationToken cancellationToken = default)
         {
             var specificationResult = ApplySpecification(spec);
             var sw = Stopwatch.StartNew();
@@ -158,8 +157,7 @@ namespace Vivarni.DDD.Infrastructure
         }
 
         /// <inheritdoc/>
-        public async Task<T> FirstOrDefaultAsync<Spec>(Spec spec, CancellationToken cancellationToken = default)
-            where Spec : ISpecification<T>, ISingleResultSpecification
+        public async Task<T> FirstOrDefaultAsync(ISpecification<T> spec, CancellationToken cancellationToken = default)
         {
             var specificationResult = ApplySpecification(spec);
             var sw = Stopwatch.StartNew();
@@ -180,8 +178,7 @@ namespace Vivarni.DDD.Infrastructure
         }
 
         /// <inheritdoc/>
-        public async Task<T> SingleAsync<Spec>(Spec spec, CancellationToken cancellationToken = default)
-            where Spec : ISpecification<T>, ISingleResultSpecification
+        public async Task<T> SingleAsync(ISpecification<T> spec, CancellationToken cancellationToken = default)
         {
             var specificationResult = ApplySpecification(spec);
             var sw = Stopwatch.StartNew();
@@ -202,8 +199,7 @@ namespace Vivarni.DDD.Infrastructure
         }
 
         /// <inheritdoc/>
-        public virtual async Task<T> SingleOrDefaultAsync<Spec>(Spec spec, CancellationToken cancellationToken = default)
-            where Spec : ISpecification<T>, ISingleResultSpecification
+        public virtual async Task<T> SingleOrDefaultAsync(ISpecification<T> spec, CancellationToken cancellationToken = default)
         {
             var specificationResult = ApplySpecification(spec);
             var sw = Stopwatch.StartNew();
