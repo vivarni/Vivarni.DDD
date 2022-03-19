@@ -11,7 +11,7 @@ namespace Vivarni.DDD.Core.SpecificationExtensions
         /// <summary>
         /// Configures the cached specification to expire after a certain timespan (TTL = Time To Live).
         /// </summary>
-        public static ISpecificationBuilder<T> WithCachingTTL<T>(this ISpecificationBuilder<T> @this, TimeSpan ttl)
+        public static ISpecificationBuilder<T> WithCachingTTL<T>(this ICacheSpecificationBuilder<T> @this, TimeSpan ttl)
             where T : class
         {
             @this.Specification.SetCacheTTL(ttl);
