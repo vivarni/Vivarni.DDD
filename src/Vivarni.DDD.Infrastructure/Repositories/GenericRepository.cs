@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -19,10 +19,10 @@ namespace Vivarni.DDD.Infrastructure
     public class GenericRepository<T> : IGenericRepository<T>
         where T : class, IAggregateRoot
     {
-        internal readonly DbContext _ctx;
+        private readonly DbContext _ctx;
 
-        private const string LOG_MSG_DFLT = "{GenericQueryTypeMethod} execution for {GenericQueryType} took {GenericQueryMilliseconds} ms";
-        private const string LOG_MSG_SPEC = "{GenericQueryTypeMethod} execution for {GenericQueryType} took {GenericQueryMilliseconds} ms using specification {GenericQuerySpecification}";
+        private const string LOG_MSG_DFLT = "{GenericRepositoryMethod} execution for {GenericRepositoryType} took {GenericRepositoryMilliseconds} ms";
+        private const string LOG_MSG_SPEC = "{GenericRepositoryMethod} execution for {GenericRepositoryType} took {GenericRepositoryMilliseconds} ms using specification {GenericRepositorySpecification}";
 
         /// <summary>
         /// We use the standard Microsoft logger in order to be portable between solutions which
@@ -228,7 +228,7 @@ namespace Vivarni.DDD.Infrastructure
         }
 
         /// <inheritdoc/>
-        private string SpecToString(ISpecification<T> spec)
+        private static string SpecToString(ISpecification<T> spec)
         {
             // TODO : Add more usefull information..
             return spec.GetType().ToString();
