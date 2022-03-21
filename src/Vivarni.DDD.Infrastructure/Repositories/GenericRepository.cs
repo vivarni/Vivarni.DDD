@@ -1,13 +1,13 @@
-﻿using Ardalis.Specification;
-using Ardalis.Specification.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Ardalis.Specification;
+using Ardalis.Specification.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Vivarni.DDD.Core;
 using Vivarni.DDD.Core.Repositories;
 using Vivarni.DDD.Core.SpecificationExtensions;
@@ -16,7 +16,8 @@ using Vivarni.DDD.Infrastructure.Caching;
 namespace Vivarni.DDD.Infrastructure
 {
     /// <inheritdoc cref="IGenericRepository{T}"/>
-    public class GenericRepository<T> : IGenericRepository<T> where T : class, IAggregateRoot
+    public class GenericRepository<T> : IGenericRepository<T>
+        where T : class, IAggregateRoot
     {
         internal readonly DbContext _ctx;
 

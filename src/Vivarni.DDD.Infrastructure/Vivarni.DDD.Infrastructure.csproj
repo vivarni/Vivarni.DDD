@@ -1,33 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	
-	<PropertyGroup>
+
+  <PropertyGroup>
     <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-		<Version>0.0.8</Version>
-		<Authors>Michaël Vittorelli</Authors>
-		<RepositoryUrl>https://github.com/vivarni/vivarni.domain</RepositoryUrl>
-		<PackageProjectUrl>https://github.com/vivarni/vivarni.domain</PackageProjectUrl>
-		<PackageIcon>icon.png</PackageIcon>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PublishRepositoryUrl>true</PublishRepositoryUrl>
-		<IncludeSymbols>true</IncludeSymbols>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<EmbedUntrackedSources>true</EmbedUntrackedSources>
-		<Description>Fundamental building blocks for creating the domain layer in a DDD software design approach.</Description>
-		<PackageTags>ddd;domain driven design;specification;aggregate</PackageTags>
-		<LangVersion>8.0</LangVersion>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	</PropertyGroup>
-	
-	<ItemGroup>
-		<PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="6.0.1" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
-	</ItemGroup>
-	<ItemGroup>
-		<None Include="../../doc/icon.png" Pack="true" Visible="false" PackagePath="\" />
-	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\Vivarni.DDD.Core\Vivarni.DDD.Core.csproj" />
-	</ItemGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <Version>0.0.8</Version>
+    <Authors>Michaël Vittorelli; Anthony Van Dooren</Authors>
+    <RepositoryUrl>https://github.com/vivarni/vivarni.domain</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/vivarni/vivarni.domain</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <Description>Fundamental building blocks for creating the domain layer in a DDD software design approach.</Description>
+    <PackageTags>ddd;domain driven design;specification;aggregate</PackageTags>
+    <LangVersion>8.0</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="../../doc/icon.png" Pack="true" Visible="false" PackagePath="\" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Vivarni.DDD.Core\Vivarni.DDD.Core.csproj" />
+  </ItemGroup>
+  
 </Project>

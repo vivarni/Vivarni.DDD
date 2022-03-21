@@ -1,5 +1,5 @@
-﻿using Ardalis.Specification;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Ardalis.Specification;
 
 namespace Vivarni.DDD.Core
 {
