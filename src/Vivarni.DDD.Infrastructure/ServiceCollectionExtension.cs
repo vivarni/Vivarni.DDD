@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Vivarni.DDD.Core.Repositories;
+using Vivarni.DDD.Infrastructure.Caching;
 using Vivarni.DDD.Infrastructure.DomainEvents;
 
 namespace Vivarni.DDD.Infrastructure
@@ -16,6 +17,7 @@ namespace Vivarni.DDD.Infrastructure
         {
             @this.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             @this.AddScoped(typeof(IDomainEventBrokerService), typeof(DomainEventBrokerService));
+            @this.AddSingleton<ICachingProvider, CachingProviderStub>();
 
             return @this;
         }
