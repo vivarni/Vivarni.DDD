@@ -6,8 +6,14 @@ using Vivarni.DDD.Infrastructure.DomainEvents;
 
 namespace Vivarni.DDD.Infrastructure
 {
+    /// <summary>
+    /// Extension methods for adding Vivarni Infrastructure services to the <see cref="IServiceCollection"/>.
+    /// </summary>
     public static class ServiceCollectionExtension
     {
+        /// <summary>
+        /// Adds scoped services for <see cref="IGenericRepository{T}"/> and <see cref="IDomainEventBrokerService"/>.
+        /// </summary>
         public static IServiceCollection AddVivarniInfrastructure(this IServiceCollection @this, Action<VivarniInfrastructureOptionsBuilder> optionsBuilder)
         {
             @this.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
