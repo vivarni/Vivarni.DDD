@@ -20,11 +20,14 @@ namespace Vivarni.DDD.Infrastructure.DomainEvents
     }
 
     /// <inheritdoc cref="IDomainEventBrokerService"/>
-    internal class DomainEventBrokerService : IDomainEventBrokerService
+    public class DomainEventBrokerService : IDomainEventBrokerService
     {
         private IReadOnlyCollection<IDomainEventHandler> _handlers;
         private readonly IServiceProvider _serviceProvider;
 
+        /// <summary>
+        /// Creates an instance of this class.
+        /// </summary>
         public DomainEventBrokerService(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
