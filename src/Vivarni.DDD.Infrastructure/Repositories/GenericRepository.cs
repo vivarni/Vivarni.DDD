@@ -35,11 +35,11 @@ namespace Vivarni.DDD.Infrastructure
         /// <summary>
         /// Creates a new instance of this class.
         /// </summary>
-        public GenericRepository(DbContext ctx, ILogger<GenericRepository<T>> logger, ICachingProvider cacheProvider)
+        public GenericRepository(DbContext ctx, ILogger<GenericRepository<T>> logger, ICachingProvider cachingProvider)
         {
             _ctx = ctx;
             _logger = logger;
-            _cacheProvider = cacheProvider;
+            _cacheProvider = cachingProvider;
         }
 
         /// <inheritdoc/>

@@ -13,11 +13,15 @@ namespace Vivarni.DDD.Infrastructure
 {
     public static class ServiceCollectionExtension
     {
-        public static IServiceCollection AddFVivarniInfrastructure(this IServiceCollection @this, IConfiguration configuration)
+        public static IServiceCollection AddVivarniInfrastructure(this IServiceCollection @this, Action<VivarniInfrastructureOptionsBuilder> optionsBuilder)
         {
             @this.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             @this.AddScoped(typeof(IDomainEventBrokerService), typeof(DomainEventBrokerService));
             @this.AddSingleton<ICachingProvider, CachingProviderStub>();
+
+            var options = new VivarniInfrastructureOptionsBuilder();
+            optionsBuilder.Invoke(options);
+            @this.Add(new ServiceDescriptor(typeof(ICachingProvider), options.CachingProviderType, options.CachingProviderServiceLifetime));
 
             return @this;
         }
