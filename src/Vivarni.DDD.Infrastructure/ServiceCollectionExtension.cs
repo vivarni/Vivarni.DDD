@@ -18,7 +18,6 @@ namespace Vivarni.DDD.Infrastructure
         {
             @this.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             @this.AddScoped(typeof(IDomainEventBrokerService), typeof(DomainEventBrokerService));
-            @this.AddSingleton<ICachingProvider, CachingProviderStub>();
 
             var options = new VivarniInfrastructureOptionsBuilder();
             optionsBuilder.Invoke(options);

@@ -22,7 +22,7 @@ namespace Vivarni.DDD.Infrastructure
         /// <summary>
         /// Configures the <see cref="ICachingProvider"/> type to be used by <see cref="GenericRepository{T}"/> with the provided service <paramref name="lifeTime"/>.
         /// </summary>
-        public void AddCachingProvider<T>(ServiceLifetime lifeTime = ServiceLifetime.Scoped)
+        public void WithCachingProvider<T>(ServiceLifetime lifeTime = ServiceLifetime.Scoped)
             where T : ICachingProvider
         {
             CachingProviderType = typeof(T);
