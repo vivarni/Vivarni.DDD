@@ -21,8 +21,8 @@ namespace Vivarni.DDD.Infrastructure
     {
         private readonly DbContext _ctx;
 
-        private const string LOG_MSG_DFLT = "{GenericRepositoryMethod} execution for {GenericRepositoryType} took {GenericRepositoryMilliseconds} ms";
-        private const string LOG_MSG_SPEC = "{GenericRepositoryMethod} execution for {GenericRepositoryType} took {GenericRepositoryMilliseconds} ms using specification {GenericRepositorySpecification}";
+        private const string LOG_MSG_DFLT =
+            "{GenericRepositoryMethod} execution for {GenericRepositoryType} took {GenericRepositoryMilliseconds} ms";
 
         /// <summary>
         /// We use the standard Microsoft logger in order to be portable between solutions which
@@ -40,6 +40,16 @@ namespace Vivarni.DDD.Infrastructure
             _ctx = ctx;
             _logger = logger;
             _cacheProvider = cachingProvider;
+        }
+
+        private void Log(ISpecification<T> spec, string methodName, long milliseconds, bool? cacheHit)
+        {
+            var specName = spec.GetType().ToString();
+            var messageTemplate =
+                "{GenericRepositoryMethod} execution for {GenericRepositoryType} took {GenericRepositoryMilliseconds} ms using specification {GenericRepositorySpecification} " +
+                "with CacheEnabled {GenericRepositoryCacheEnabled} and CacheHit {GenericRepositoryCacheHit}";
+
+            _logger.LogInformation(messageTemplate, methodName, typeof(T), milliseconds, specName, spec.CacheEnabled, cacheHit);
         }
 
         /// <inheritdoc/>
@@ -67,19 +77,25 @@ namespace Vivarni.DDD.Infrastructure
         {
             var specificationResult = ApplySpecification(spec);
             var sw = Stopwatch.StartNew();
+            bool? cacheHit = null;
             IReadOnlyList<T> result;
 
             if (spec.CacheEnabled)
             {
                 var ttl = spec.GetCacheTTL();
-                result = await _cacheProvider.GetAsync(spec.CacheKey, async () => await specificationResult.ToListAsync(cancellationToken), ttl);
+                cacheHit = true;
+                result = await _cacheProvider.GetAsync(spec.CacheKey, async () =>
+                {
+                    cacheHit = false;
+                    return await specificationResult.ToListAsync(cancellationToken);
+                }, ttl);
             }
             else
             {
                 result = await specificationResult.ToListAsync(cancellationToken);
             }
 
-            _logger.LogInformation(LOG_MSG_SPEC, nameof(ListAsync), typeof(T), sw.ElapsedMilliseconds, SpecToString(spec));
+            Log(spec, nameof(ListAsync), sw.ElapsedMilliseconds, cacheHit);
             return result;
         }
 
@@ -98,19 +114,25 @@ namespace Vivarni.DDD.Infrastructure
         {
             var specificationResult = ApplySpecification(spec);
             var sw = Stopwatch.StartNew();
+            bool? cacheHit = null;
             int result;
 
             if (spec.CacheEnabled)
             {
                 var ttl = spec.GetCacheTTL();
-                result = await _cacheProvider.GetAsync(spec.CacheKey, async () => await specificationResult.CountAsync(cancellationToken), ttl);
+                cacheHit = true;
+                result = await _cacheProvider.GetAsync(spec.CacheKey, async () =>
+                {
+                    cacheHit = false;
+                    return await specificationResult.CountAsync(cancellationToken);
+                }, ttl);
             }
             else
             {
                 result = await specificationResult.CountAsync(cancellationToken);
             }
 
-            _logger.LogInformation(LOG_MSG_SPEC, nameof(CountAsync), typeof(T), sw.ElapsedMilliseconds, SpecToString(spec));
+            Log(spec, nameof(CountAsync), sw.ElapsedMilliseconds, cacheHit);
             return result;
         }
 
@@ -141,19 +163,25 @@ namespace Vivarni.DDD.Infrastructure
         {
             var specificationResult = ApplySpecification(spec);
             var sw = Stopwatch.StartNew();
+            bool? cacheHit = null;
             T result;
 
             if (spec.CacheEnabled)
             {
                 var ttl = spec.GetCacheTTL();
-                result = await _cacheProvider.GetAsync(spec.CacheKey, async () => await specificationResult.FirstAsync(cancellationToken), ttl);
+                cacheHit = true;
+                result = await _cacheProvider.GetAsync(spec.CacheKey, async () =>
+                {
+                    cacheHit = false;
+                    return await specificationResult.FirstAsync(cancellationToken);
+                }, ttl);
             }
             else
             {
                 result = await specificationResult.FirstAsync(cancellationToken);
             }
 
-            _logger.LogInformation(LOG_MSG_SPEC, nameof(FirstAsync), typeof(T), sw.ElapsedMilliseconds, SpecToString(spec));
+            Log(spec, nameof(FirstAsync), sw.ElapsedMilliseconds, cacheHit);
             return result;
         }
 
@@ -162,19 +190,25 @@ namespace Vivarni.DDD.Infrastructure
         {
             var specificationResult = ApplySpecification(spec);
             var sw = Stopwatch.StartNew();
+            bool? cacheHit = null;
             T result;
 
             if (spec.CacheEnabled)
             {
                 var ttl = spec.GetCacheTTL();
-                result = await _cacheProvider.GetAsync(spec.CacheKey, async () => await specificationResult.FirstOrDefaultAsync(cancellationToken), ttl);
+                cacheHit = true;
+                result = await _cacheProvider.GetAsync(spec.CacheKey, async () =>
+                {
+                    cacheHit |= false;
+                    return await specificationResult.FirstOrDefaultAsync(cancellationToken);
+                }, ttl);
             }
             else
             {
                 result = await specificationResult.FirstOrDefaultAsync(cancellationToken);
             }
 
-            _logger.LogInformation(LOG_MSG_SPEC, nameof(FirstOrDefaultAsync), typeof(T), sw.ElapsedMilliseconds, SpecToString(spec));
+            Log(spec, nameof(FirstOrDefaultAsync), sw.ElapsedMilliseconds, cacheHit);
             return result;
         }
 
@@ -183,19 +217,25 @@ namespace Vivarni.DDD.Infrastructure
         {
             var specificationResult = ApplySpecification(spec);
             var sw = Stopwatch.StartNew();
+            bool? cacheHit = null;
             T result;
 
             if (spec.CacheEnabled)
             {
                 var ttl = spec.GetCacheTTL();
-                result = await _cacheProvider.GetAsync(spec.CacheKey, async () => await specificationResult.SingleAsync(cancellationToken), ttl);
+                cacheHit = true;
+                result = await _cacheProvider.GetAsync(spec.CacheKey, async () =>
+                {
+                    cacheHit = false;
+                    return await specificationResult.SingleAsync(cancellationToken);
+                }, ttl);
             }
             else
             {
                 result = await specificationResult.SingleAsync(cancellationToken);
             }
 
-            _logger.LogInformation(LOG_MSG_SPEC, nameof(SingleAsync), typeof(T), sw.ElapsedMilliseconds, SpecToString(spec));
+            Log(spec, nameof(SingleAsync), sw.ElapsedMilliseconds, cacheHit);
             return result;
         }
 
@@ -204,19 +244,25 @@ namespace Vivarni.DDD.Infrastructure
         {
             var specificationResult = ApplySpecification(spec);
             var sw = Stopwatch.StartNew();
+            bool? cacheHit = null;
             T result;
 
             if (spec.CacheEnabled)
             {
                 var ttl = spec.GetCacheTTL();
-                result = await _cacheProvider.GetAsync(spec.CacheKey, async () => await specificationResult.SingleOrDefaultAsync(cancellationToken), ttl);
+                cacheHit = true;
+                result = await _cacheProvider.GetAsync(spec.CacheKey, async () =>
+                {
+                    cacheHit = false;
+                    return await specificationResult.SingleOrDefaultAsync(cancellationToken);
+                }, ttl);
             }
             else
             {
                 result = await specificationResult.SingleOrDefaultAsync(cancellationToken);
             }
 
-            _logger.LogInformation(LOG_MSG_SPEC, nameof(SingleOrDefaultAsync), typeof(T), sw.ElapsedMilliseconds, SpecToString(spec));
+            Log(spec, nameof(SingleOrDefaultAsync), sw.ElapsedMilliseconds, cacheHit);
             return result;
         }
 
@@ -225,13 +271,6 @@ namespace Vivarni.DDD.Infrastructure
         {
             var evaluator = SpecificationEvaluator.Default;
             return evaluator.GetQuery(_ctx.Set<T>().AsQueryable(), spec);
-        }
-
-        /// <inheritdoc/>
-        private static string SpecToString(ISpecification<T> spec)
-        {
-            // TODO : Add more usefull information..
-            return spec.GetType().ToString();
         }
     }
 }
