@@ -8,7 +8,7 @@ namespace Vivarni.DDD.Core.SpecificationExtensions
     /// Extension methods for <see cref="Ardalis.Specification"/> which allows to configure the
     /// expiration time of cached specifications using <see cref="TimeSpan"/>'s.
     /// </summary>
-    public static class SpecificationExtentions
+    public static class SpecificationExtensions
     {
         /// <summary>
         /// We use a <see cref="System.Runtime.CompilerServices.ConditionalWeakTable{TKey, TValue}"/>
