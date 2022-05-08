@@ -272,5 +272,27 @@ namespace Vivarni.DDD.Infrastructure
             var evaluator = SpecificationEvaluator.Default;
             return evaluator.GetQuery(_ctx.Set<T>().AsQueryable(), spec);
         }
+
+        /// <inheritdoc/>
+        public async Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+        {
+            await _ctx.Set<T>().AddRangeAsync(entities, cancellationToken);
+            await _ctx.SaveChangesAsync(cancellationToken);
+
+            return entities;
+        }
+
+        /// <inheritdoc/>
+        public async Task UpdateRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+        {
+            await _ctx.SaveChangesAsync(cancellationToken);
+        }
+
+        /// <inheritdoc/>
+        public async Task DeleteRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+        {
+            _ctx.Set<T>().RemoveRange(entities);
+            await _ctx.SaveChangesAsync(cancellationToken);
+        }
     }
 }
