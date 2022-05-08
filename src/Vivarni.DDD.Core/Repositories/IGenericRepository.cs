@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Ardalis.Specification;
@@ -130,12 +131,27 @@ namespace Vivarni.DDD.Core.Repositories
         Task<T> AddAsync(T entity, CancellationToken cancellationToken = default);
 
         /// <summary>
+        /// Asynchronously adds the provided <paramref name="entities"/> to the database.
+        /// </summary>
+        /// <param name="entities">The entities to add.</param>
+        /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
+        /// <returns>A task that represents the added entity.</returns>
+        Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
+
+        /// <summary>
         /// Asynchronously updates the provided <paramref name="entity"/> in the database.
         /// </summary>
         /// <param name="entity">The entity to update.</param>
         /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
         Task UpdateAsync(T entity, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Asynchronously updates the provided <paramref name="entities"/> in the database.
+        /// </summary>
+        /// <param name="entities">The entities to update.</param>
+        /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
+        Task UpdateRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Asynchronously removes the provided <paramref name="entity"/> from the database.
@@ -144,5 +160,12 @@ namespace Vivarni.DDD.Core.Repositories
         /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
         Task DeleteAsync(T entity, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Asynchronously removes the provided <paramref name="entities"/> from the database.
+        /// </summary>
+        /// <param name="entities">The entity to delete.</param>
+        /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
+        Task DeleteRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
     }
 }
