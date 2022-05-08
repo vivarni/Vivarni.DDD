@@ -14,14 +14,20 @@ namespace Vivarni.DDD.Infrastructure
         /// <summary>
         /// Adds scoped services for <see cref="IGenericRepository{T}"/> and <see cref="IDomainEventBrokerService"/>.
         /// </summary>
-        public static IServiceCollection AddVivarniInfrastructure(this IServiceCollection @this, Action<VivarniInfrastructureOptionsBuilder> optionsBuilder)
+        public static IServiceCollection AddVivarniInfrastructure(this IServiceCollection @this, Action<VivarniInfrastructureOptionsBuilder> optionsBuilder = null)
         {
-            @this.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             @this.AddScoped(typeof(IDomainEventBrokerService), typeof(DomainEventBrokerService));
 
             var options = new VivarniInfrastructureOptionsBuilder();
-            optionsBuilder.Invoke(options);
+            if (optionsBuilder != null)
+                optionsBuilder.Invoke(options);
             @this.Add(new ServiceDescriptor(typeof(ICachingProvider), options.CachingProviderType, options.CachingProviderServiceLifetime));
+
+            options.GenericRepositories.TryAdd(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            foreach (var genericRepository in options.GenericRepositories)
+            {
+                @this.AddScoped(genericRepository.Key, genericRepository.Value);
+            }
 
             return @this;
         }
