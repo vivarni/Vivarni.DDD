@@ -139,8 +139,10 @@ namespace Vivarni.DDD.Infrastructure
         /// <inheritdoc/>
         public virtual async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
         {
+            var sw = Stopwatch.StartNew();
             await _ctx.Set<T>().AddAsync(entity, cancellationToken);
             await _ctx.SaveChangesAsync(cancellationToken);
+            _logger.LogInformation(LOG_MSG_DFLT, nameof(AddAsync), typeof(T), sw.ElapsedMilliseconds);
 
             return entity;
         }
@@ -148,14 +150,18 @@ namespace Vivarni.DDD.Infrastructure
         /// <inheritdoc/>
         public virtual async Task UpdateAsync(T entity, CancellationToken cancellationToken = default)
         {
+            var sw = Stopwatch.StartNew();
             await _ctx.SaveChangesAsync(cancellationToken);
+            _logger.LogInformation(LOG_MSG_DFLT, nameof(UpdateAsync), typeof(T), sw.ElapsedMilliseconds);
         }
 
         /// <inheritdoc/>
         public virtual async Task DeleteAsync(T entity, CancellationToken cancellationToken = default)
         {
+            var sw = Stopwatch.StartNew();
             _ctx.Set<T>().Remove(entity);
             await _ctx.SaveChangesAsync(cancellationToken);
+            _logger.LogInformation(LOG_MSG_DFLT, nameof(DeleteAsync), typeof(T), sw.ElapsedMilliseconds);
         }
 
         /// <inheritdoc/>
@@ -276,8 +282,10 @@ namespace Vivarni.DDD.Infrastructure
         /// <inheritdoc/>
         public async Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
         {
+            var sw = Stopwatch.StartNew();
             await _ctx.Set<T>().AddRangeAsync(entities, cancellationToken);
             await _ctx.SaveChangesAsync(cancellationToken);
+            _logger.LogInformation(LOG_MSG_DFLT, nameof(AddRangeAsync), typeof(T), sw.ElapsedMilliseconds);
 
             return entities;
         }
@@ -285,14 +293,18 @@ namespace Vivarni.DDD.Infrastructure
         /// <inheritdoc/>
         public async Task UpdateRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
         {
+            var sw = Stopwatch.StartNew();
             await _ctx.SaveChangesAsync(cancellationToken);
+            _logger.LogInformation(LOG_MSG_DFLT, nameof(UpdateRangeAsync), typeof(T), sw.ElapsedMilliseconds);
         }
 
         /// <inheritdoc/>
         public async Task DeleteRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
         {
+            var sw = Stopwatch.StartNew();
             _ctx.Set<T>().RemoveRange(entities);
             await _ctx.SaveChangesAsync(cancellationToken);
+            _logger.LogInformation(LOG_MSG_DFLT, nameof(DeleteRangeAsync), typeof(T), sw.ElapsedMilliseconds);
         }
     }
 }
