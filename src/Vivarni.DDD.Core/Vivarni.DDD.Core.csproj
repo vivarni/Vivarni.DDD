@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <Version>1.0.6</Version>
+    <Version>1.1.0</Version>
     <Authors>Michaël Vittorelli; Anthony Van Dooren</Authors>
     <RepositoryUrl>https://github.com/vivarni/vivarni.domain</RepositoryUrl>
     <PackageProjectUrl>https://github.com/vivarni/vivarni.domain</PackageProjectUrl>
@@ -25,7 +25,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ardalis.Specification" Version="6.0.1" />
+    <PackageReference Include="Ardalis.Specification" Version="6.1.0" />
   </ItemGroup>
 
   <ItemGroup>
