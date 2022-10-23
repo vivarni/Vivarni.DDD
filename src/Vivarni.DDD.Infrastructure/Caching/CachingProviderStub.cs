@@ -7,7 +7,7 @@ namespace Vivarni.DDD.Infrastructure.Caching
     {
         public Task<T> GetAsync<T>(string cacheKey, Func<Task<T>> dataRetriever, TimeSpan timeToLive)
         {
-            return null;
+            throw new NotImplementedException("You must configure an " + nameof(ICachingProvider) + " when working with cached specifications.");
         }
     }
 }
