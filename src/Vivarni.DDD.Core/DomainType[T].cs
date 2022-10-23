@@ -13,10 +13,10 @@ namespace Vivarni.DDD.Core
         protected DomainType(string name) : base(name) { }
 
         /// <summary>
-        /// Searches all static fields of <typeparamref name="T"/> and returns the one
-        /// whose name corresponds with <paramref name="name"/> or NULL otherwise.
+        /// Searches all static fields of <typeparamref name="T"/> and returns the one whose name
+        /// corresponds with <paramref name="name"/> or <see langword="null"/> otherwise.
         /// </summary>
-        public static T FromString(string name, bool ignoreCase = false)
+        public static T? FromString(string name, bool ignoreCase = false)
         {
             var stringComparison = ignoreCase ? StringComparison.InvariantCultureIgnoreCase : StringComparison.InvariantCulture;
             var typeproperties = typeof(T).GetFields();
