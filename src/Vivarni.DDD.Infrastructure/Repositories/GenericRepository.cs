@@ -53,7 +53,8 @@ namespace Vivarni.DDD.Infrastructure
         }
 
         /// <inheritdoc/>
-        public virtual async Task<T> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken = default)
+        public virtual async Task<T?> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken = default)
+            where TId : notnull
         {
             var sw = Stopwatch.StartNew();
             var result = await _ctx.Set<T>().FindAsync(new object[] { id }, cancellationToken);
@@ -84,7 +85,7 @@ namespace Vivarni.DDD.Infrastructure
             {
                 var ttl = spec.GetCacheTTL();
                 cacheHit = true;
-                result = await _cacheProvider.GetAsync(spec.CacheKey, async () =>
+                result = await _cacheProvider.GetAsync(spec.CacheKey!, async () =>
                 {
                     cacheHit = false;
                     return await specificationResult.ToListAsync(cancellationToken);
@@ -121,7 +122,7 @@ namespace Vivarni.DDD.Infrastructure
             {
                 var ttl = spec.GetCacheTTL();
                 cacheHit = true;
-                result = await _cacheProvider.GetAsync(spec.CacheKey, async () =>
+                result = await _cacheProvider.GetAsync(spec.CacheKey!, async () =>
                 {
                     cacheHit = false;
                     return await specificationResult.CountAsync(cancellationToken);
@@ -176,7 +177,7 @@ namespace Vivarni.DDD.Infrastructure
             {
                 var ttl = spec.GetCacheTTL();
                 cacheHit = true;
-                result = await _cacheProvider.GetAsync(spec.CacheKey, async () =>
+                result = await _cacheProvider.GetAsync(spec.CacheKey!, async () =>
                 {
                     cacheHit = false;
                     return await specificationResult.FirstAsync(cancellationToken);
@@ -192,18 +193,18 @@ namespace Vivarni.DDD.Infrastructure
         }
 
         /// <inheritdoc/>
-        public async Task<T> FirstOrDefaultAsync(ISpecification<T> spec, CancellationToken cancellationToken = default)
+        public async Task<T?> FirstOrDefaultAsync(ISpecification<T> spec, CancellationToken cancellationToken = default)
         {
             var specificationResult = ApplySpecification(spec);
             var sw = Stopwatch.StartNew();
             bool? cacheHit = null;
-            T result;
+            T? result;
 
             if (spec.CacheEnabled)
             {
                 var ttl = spec.GetCacheTTL();
                 cacheHit = true;
-                result = await _cacheProvider.GetAsync(spec.CacheKey, async () =>
+                result = await _cacheProvider.GetAsync(spec.CacheKey!, async () =>
                 {
                     cacheHit |= false;
                     return await specificationResult.FirstOrDefaultAsync(cancellationToken);
@@ -230,7 +231,7 @@ namespace Vivarni.DDD.Infrastructure
             {
                 var ttl = spec.GetCacheTTL();
                 cacheHit = true;
-                result = await _cacheProvider.GetAsync(spec.CacheKey, async () =>
+                result = await _cacheProvider.GetAsync(spec.CacheKey!, async () =>
                 {
                     cacheHit = false;
                     return await specificationResult.SingleAsync(cancellationToken);
@@ -246,18 +247,18 @@ namespace Vivarni.DDD.Infrastructure
         }
 
         /// <inheritdoc/>
-        public virtual async Task<T> SingleOrDefaultAsync(ISpecification<T> spec, CancellationToken cancellationToken = default)
+        public virtual async Task<T?> SingleOrDefaultAsync(ISpecification<T> spec, CancellationToken cancellationToken = default)
         {
             var specificationResult = ApplySpecification(spec);
             var sw = Stopwatch.StartNew();
             bool? cacheHit = null;
-            T result;
+            T? result;
 
             if (spec.CacheEnabled)
             {
                 var ttl = spec.GetCacheTTL();
                 cacheHit = true;
-                result = await _cacheProvider.GetAsync(spec.CacheKey, async () =>
+                result = await _cacheProvider.GetAsync(spec.CacheKey!, async () =>
                 {
                     cacheHit = false;
                     return await specificationResult.SingleOrDefaultAsync(cancellationToken);

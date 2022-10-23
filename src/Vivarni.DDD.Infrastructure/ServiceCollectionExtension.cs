@@ -14,7 +14,7 @@ namespace Vivarni.DDD.Infrastructure
         /// <summary>
         /// Adds scoped services for <see cref="IGenericRepository{T}"/> and <see cref="IDomainEventBrokerService"/>.
         /// </summary>
-        public static IServiceCollection AddVivarniInfrastructure(this IServiceCollection @this, Action<VivarniInfrastructureOptionsBuilder> optionsBuilder = null)
+        public static IServiceCollection AddVivarniInfrastructure(this IServiceCollection @this, Action<VivarniInfrastructureOptionsBuilder>? optionsBuilder = null)
         {
             @this.AddScoped(typeof(IDomainEventBrokerService), typeof(DomainEventBrokerService));
 

@@ -14,7 +14,8 @@ namespace Vivarni.DDD.Core.Repositories
     /// </para>
     /// </summary>
     /// <typeparam name="T">The type of entity being operated on by this repository.</typeparam>
-    public interface IGenericRepository<T> where T : IAggregateRoot
+    public interface IGenericRepository<T>
+        where T : class, IAggregateRoot
     {
         /// <summary>
         /// Finds an entity with the given primary key value.
@@ -26,7 +27,8 @@ namespace Vivarni.DDD.Core.Repositories
         /// A task that represents the asynchronous operation.
         /// The task result contains the <typeparamref name="T" />, or <see langword="null"/>.
         /// </returns>
-        Task<T> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken = default);
+        Task<T?> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken = default)
+            where TId : notnull;
 
         /// <summary>
         /// Finds all entities of <typeparamref name="T" /> from the database.
@@ -92,7 +94,7 @@ namespace Vivarni.DDD.Core.Repositories
         /// A task that represents the asynchronous operation. The task result contains <c>default</c>(<typeparamref name="T"/>) if
         /// the encapsulated query yields no results; otherwise, the first element that matches the encapsulated query logic.
         /// </returns>
-        Task<T> FirstOrDefaultAsync(ISpecification<T> specification, CancellationToken cancellationToken = default);
+        Task<T?> FirstOrDefaultAsync(ISpecification<T> specification, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Asynchronously returns the only entity (of <typeparamref name="T" />) of a sequence that matches the
@@ -120,7 +122,7 @@ namespace Vivarni.DDD.Core.Repositories
         /// the encapsulated query yields no results; otherwise, the only element that matches the encapsulated query logic.
         /// </returns>
         /// <exception cref="InvalidOperationException">The encapsulated query logic of <paramref name="specification"/> yields more than one element.</exception>
-        Task<T> SingleOrDefaultAsync(ISpecification<T> specification, CancellationToken cancellationToken = default);
+        Task<T?> SingleOrDefaultAsync(ISpecification<T> specification, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Asynchronously adds the provided <paramref name="entity"/> to the database.

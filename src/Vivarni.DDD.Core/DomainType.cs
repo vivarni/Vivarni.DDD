@@ -39,7 +39,7 @@ namespace Vivarni.DDD.Core
         public override bool Equals(object obj) => this.Equals(obj as DomainType);
 
         /// <inheritdoc/>
-        public bool Equals(DomainType p)
+        public bool Equals(DomainType? p)
         {
             if (p is null)
             {

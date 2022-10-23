@@ -22,7 +22,7 @@ namespace Vivarni.DDD.Infrastructure.DomainEvents
     /// <inheritdoc cref="IDomainEventBrokerService"/>
     public class DomainEventBrokerService : IDomainEventBrokerService
     {
-        private IReadOnlyCollection<IDomainEventHandler> _handlers;
+        private IReadOnlyCollection<IDomainEventHandler>? _handlers;
         private readonly IServiceProvider _serviceProvider;
 
         /// <summary>
@@ -66,12 +66,9 @@ namespace Vivarni.DDD.Infrastructure.DomainEvents
         /// <returns>A collection of event handler instances.</returns>
         private IReadOnlyCollection<TEventHandler> ResolveEventHandlers<TEventHandler>()
         {
-            if (_handlers == null)
-            {
-                _handlers = _serviceProvider
-                    .GetServices<IDomainEventHandler>()
-                    .ToList();
-            }
+            _handlers ??= _serviceProvider
+                .GetServices<IDomainEventHandler>()
+                .ToList();
 
             return _handlers.OfType<TEventHandler>().ToList();
         }
