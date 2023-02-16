@@ -14,7 +14,7 @@ namespace Vivarni.DDD.Infrastructure
         /// <summary>
         /// The <see cref="ICachingProvider"/> type used by <see cref="GenericRepository{T}"/>.
         /// </summary>
-        internal Type CachingProviderType { get; set; } = typeof(CachingProviderStub);
+        internal Type CachingProviderType { get; set; } = typeof(MemoryCacheCachingProvider);
 
         /// <summary>
         /// Service lifetime for the <see cref="ICachingProvider"/> used by <see cref="GenericRepository{T}"/>.

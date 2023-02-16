@@ -22,7 +22,7 @@ namespace Vivarni.DDD.Infrastructure.DomainEvents
     /// <inheritdoc cref="IDomainEventBrokerService"/>
     public class DomainEventBrokerService : IDomainEventBrokerService
     {
-        private IReadOnlyCollection<IDomainEventHandler>? _handlers;
+        private readonly Dictionary<Type, IReadOnlyCollection<IDomainEventHandler>> _handlers;
         private readonly IServiceProvider _serviceProvider;
 
         /// <summary>
@@ -31,6 +31,7 @@ namespace Vivarni.DDD.Infrastructure.DomainEvents
         public DomainEventBrokerService(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
+            _handlers = new Dictionary<Type, IReadOnlyCollection<IDomainEventHandler>>();
         }
 
         /// <inheritdoc/>
@@ -66,11 +67,13 @@ namespace Vivarni.DDD.Infrastructure.DomainEvents
         /// <returns>A collection of event handler instances.</returns>
         private IReadOnlyCollection<TEventHandler> ResolveEventHandlers<TEventHandler>()
         {
-            _handlers ??= _serviceProvider
-                .GetServices<IDomainEventHandler>()
-                .ToList();
+            if (!_handlers.ContainsKey(typeof(TEventHandler)))
+            {
+                var handlers = (IReadOnlyCollection<IDomainEventHandler>)_serviceProvider.GetServices<TEventHandler>();
+                _handlers[typeof(TEventHandler)] = handlers;
+            }
 
-            return _handlers.OfType<TEventHandler>().ToList();
+            return (IReadOnlyCollection<TEventHandler>)_handlers[typeof(TEventHandler)];
         }
     }
 }
