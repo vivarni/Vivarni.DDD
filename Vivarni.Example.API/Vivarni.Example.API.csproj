@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Vivarni.Example.Application\Vivarni.Example.Application.csproj" />
+    <ProjectReference Include="..\Vivarni.Example.Domain\Vivarni.Example.Domain.csproj" />
     <ProjectReference Include="..\Vivarni.Example.Infrastructure\Vivarni.Example.Infrastructure.csproj" />
   </ItemGroup>
 
