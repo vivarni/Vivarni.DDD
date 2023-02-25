@@ -3,17 +3,19 @@ using Vivarni.DDD.Core;
 using Vivarni.DDD.Infrastructure.DomainEvents;
 using Vivarni.Example.Domain.Entities;
 
-namespace Vivarni.Example.Infrastructure;
+namespace Vivarni.Example.Infrastructure.SQLite;
 
-public class ApplicationDbContext: DbContext
+public class ApplicationDbContext : DbContext
 {
+    public DbSet<GuestMessage> GuestMessages { get; set; }
+
     private readonly IDomainEventBrokerService _domainEventBroker;
 
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDomainEventBrokerService domainEventBrokerService) : base(options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDomainEventBrokerService domainEventBrokerService)
+        : base(options)
     {
         _domainEventBroker = domainEventBrokerService;
     }
-    public DbSet<GuestMessage> GuestMessages { get; set; }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {
@@ -59,6 +61,7 @@ public class ApplicationDbContext: DbContext
 
         return result;
     }
+
     private IDomainEvent[] PopUnpublishedDomainEvents()
     {
         var entitiesWithEvents = ChangeTracker.Entries<IEntityWithDomainEvents>()
@@ -75,5 +78,4 @@ public class ApplicationDbContext: DbContext
 
         return events.ToArray();
     }
-
 }

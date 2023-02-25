@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Vivarni.Example.Domain\Vivarni.Example.Domain.csproj" />
-    <ProjectReference Include="..\Vivarni.Example.Infrastructure\Vivarni.Example.Infrastructure.csproj" />
+    <ProjectReference Include="..\Vivarni.Example.Infrastructure\Vivarni.Example.Infrastructure.SQLite.csproj" />
   </ItemGroup>
 
 </Project>

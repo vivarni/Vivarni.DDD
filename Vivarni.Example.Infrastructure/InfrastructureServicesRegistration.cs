@@ -7,7 +7,7 @@ using Vivarni.DDD.Core.Repositories;
 using Vivarni.DDD.Infrastructure;
 using Vivarni.DDD.Infrastructure.DomainEvents;
 
-namespace Vivarni.Example.Infrastructure;
+namespace Vivarni.Example.Infrastructure.SQLite;
 
 public static class InfrastructureServicesRegistration
 {
