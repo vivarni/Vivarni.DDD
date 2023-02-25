@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Vivarni.DDD.Core;
-using Vivarni.Example.Shared.Shared.Models;
 
 namespace Vivarni.Example.Domain.Entities;
 
-public class GuestMessage: BaseEntity, IAggregateRoot
+public class GuestMessage : BaseEntity, IAggregateRoot
 {
     [MaxLength(500)]
     public string Message { get; set; } = string.Empty;
@@ -12,10 +11,11 @@ public class GuestMessage: BaseEntity, IAggregateRoot
     {
 
     }
-    public GuestMessage(GuestMessageCreateDTO record)
+
+    public GuestMessage(string message, string author)
     {
-        Message = record.GuestMessage;
-        CreatedBy = record.CreatedByUser;
-        LastModifiedBy = record.CreatedByUser;
+        Message = message;
+        CreatedBy = author;
+        LastModifiedBy = author;
     }
 }

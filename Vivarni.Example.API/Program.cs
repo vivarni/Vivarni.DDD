@@ -1,8 +1,8 @@
 ﻿
 using Vivarni.DDD.Core.Repositories;
+using Vivarni.Example.API.ApiModels;
 using Vivarni.Example.Domain.Entities;
 using Vivarni.Example.Infrastructure.SQLite;
-using Vivarni.Example.Shared.Shared.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,17 +14,17 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
-app.MapPost("/GuestMessages", async (IGenericRepository<GuestMessage> guestMessageRepository, GuestMessageCreateDTO insertModel) =>
+app.MapPost("/GuestMessages", async (IGenericRepository<GuestMessage> guestMessageRepository, GuestMessageWriteModel wm) =>
 {
-    var entity = new GuestMessage(insertModel);
+    var entity = new GuestMessage(wm.GuestMessage, wm.CreatedByUser);
     return await guestMessageRepository.AddAsync(entity);
 });
 app.MapGet("/GuestMessages", async (IGenericRepository<GuestMessage> guestMessageRepository) =>
 {
-    var messages = new List<GuestMessageDTO>();
+    var messages = new List<GuestMessageReadModel>();
     foreach (var message in await guestMessageRepository.ListAsync())
     {
-        messages.Add(new GuestMessageDTO(message.Message, message.CreatedBy, message.CreationDate));
+        messages.Add(new GuestMessageReadModel(message.Message, message.CreatedBy, message.CreationDate));
     }
     return messages;
 });

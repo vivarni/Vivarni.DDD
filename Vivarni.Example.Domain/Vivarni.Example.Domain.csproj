@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\src\Vivarni.DDD.Core\Vivarni.DDD.Core.csproj" />
-    <ProjectReference Include="..\Vivarni.Example.Shared\Vivarni.Example.Shared.csproj" />
   </ItemGroup>
 
 </Project>
