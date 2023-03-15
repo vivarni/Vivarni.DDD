@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <Version>2.0.0</Version>
+    <Version>2.0.2</Version>
     <Authors>Michaël Vittorelli; Anthony Van Dooren</Authors>
     <RepositoryUrl>https://github.com/vivarni/vivarni.domain</RepositoryUrl>
     <PackageProjectUrl>https://github.com/vivarni/vivarni.domain</PackageProjectUrl>
