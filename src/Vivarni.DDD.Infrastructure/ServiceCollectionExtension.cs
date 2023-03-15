@@ -23,7 +23,10 @@ namespace Vivarni.DDD.Infrastructure
                 optionsBuilder.Invoke(options);
             @this.Add(new ServiceDescriptor(typeof(ICachingProvider), options.CachingProviderType, options.CachingProviderServiceLifetime));
 
-            options.GenericRepositories.TryAdd(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            var key = typeof(IGenericRepository<>);
+            if (!options.GenericRepositories.ContainsKey(key))
+                options.GenericRepositories.Add(key, typeof(GenericRepository<>));
+
             foreach (var genericRepository in options.GenericRepositories)
             {
                 @this.AddScoped(genericRepository.Key, genericRepository.Value);
