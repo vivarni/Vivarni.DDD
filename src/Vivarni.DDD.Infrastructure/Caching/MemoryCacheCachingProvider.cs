@@ -13,8 +13,11 @@ namespace Vivarni.DDD.Infrastructure.Caching
             _memoryCache = memoryCache;
         }
 
-        public Task<T> GetAsync<T>(string cacheKey, Func<Task<T>> dataRetriever, TimeSpan timeToLive)
+        public Task<T> GetAsync<T>(string cacheKey, Func<Task<T>> dataRetriever, TimeSpan timeToLive, bool forceRefresh)
         {
+            if (forceRefresh)
+                _memoryCache.Remove(cacheKey);
+
             return _memoryCache.GetOrCreateAsync<T>(cacheKey, async e =>
             {
                 e.AbsoluteExpirationRelativeToNow = timeToLive;
