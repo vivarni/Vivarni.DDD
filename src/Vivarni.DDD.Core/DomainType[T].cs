@@ -16,7 +16,7 @@ namespace Vivarni.DDD.Core
         /// Searches all static fields of <typeparamref name="T"/> and returns the one whose name
         /// corresponds with <paramref name="name"/> or <see langword="null"/> otherwise.
         /// </summary>
-        public static T? FromString(string name, bool ignoreCase = false, bool throwException = false)
+        public static T? FromString(string? name, bool ignoreCase = false, bool throwException = false)
         {
             if (string.IsNullOrEmpty(name))
                 return null;
