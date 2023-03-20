@@ -8,6 +8,7 @@ namespace Vivarni.Example.Infrastructure.SQLite;
 public class ApplicationDbContext : DbContext
 {
     public DbSet<GuestMessage> GuestMessages { get; set; }
+    public DbSet<GuestMessagesCounter> GuestMessagesCounters { get; set; }
 
     private readonly IDomainEventBrokerService _domainEventBroker;
 
