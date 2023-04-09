@@ -24,7 +24,10 @@ namespace Vivarni.DDD.Infrastructure
             @this.AddScoped(typeof(IDomainEventBrokerService), typeof(DomainEventBrokerService));
             @this.AddCachingProvider(options);
 
-            options.GenericRepositories.TryAdd(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            var key = typeof(IGenericRepository<>);
+            if (!options.GenericRepositories.ContainsKey(key))
+                options.GenericRepositories.Add(key, typeof(GenericRepository<>));
+
             foreach (var genericRepository in options.GenericRepositories)
             {
                 @this.AddScoped(genericRepository.Key, genericRepository.Value);

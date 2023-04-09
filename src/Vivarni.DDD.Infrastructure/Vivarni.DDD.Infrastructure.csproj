@@ -1,10 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+<<<<<<< HEAD
     <TargetFrameworks>net5.0;net6.0;net7.0</TargetFrameworks>
+=======
+    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+>>>>>>> master
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <Version>1.1.2</Version>
+    <Version>2.0.2</Version>
     <Authors>Michaël Vittorelli; Anthony Van Dooren</Authors>
     <RepositoryUrl>https://github.com/vivarni/vivarni.domain</RepositoryUrl>
     <PackageProjectUrl>https://github.com/vivarni/vivarni.domain</PackageProjectUrl>
@@ -21,7 +25,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition = "'$(TargetFramework)' == 'net6.0'">
+    <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="6.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition = "'$(TargetFramework)' == 'net7.0'">
     <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="6.1.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
   </ItemGroup>

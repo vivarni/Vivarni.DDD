@@ -45,7 +45,8 @@ namespace Vivarni.DDD.Infrastructure
         /// </summary>
         public VivarniInfrastructureOptionsBuilder WithGenericRepository(Type genericRepositoryInterface, Type genericRepositoryImplementation)
         {
-            GenericRepositories.TryAdd(genericRepositoryInterface, genericRepositoryImplementation);
+            if (!GenericRepositories.ContainsKey(genericRepositoryInterface))
+                GenericRepositories.Add(genericRepositoryInterface, genericRepositoryImplementation);
 
             return this;
         }

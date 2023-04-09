@@ -84,12 +84,13 @@ namespace Vivarni.DDD.Infrastructure
             if (spec.CacheEnabled)
             {
                 var ttl = spec.GetCacheTTL();
+                var forceRefresh = spec.HasForcedCacheRefreshFlag();
                 cacheHit = true;
                 result = await _cacheProvider.GetAsync(spec.CacheKey!, async () =>
                 {
                     cacheHit = false;
                     return await specificationResult.ToListAsync(cancellationToken);
-                }, ttl);
+                }, ttl, forceRefresh);
             }
             else
             {
@@ -121,12 +122,13 @@ namespace Vivarni.DDD.Infrastructure
             if (spec.CacheEnabled)
             {
                 var ttl = spec.GetCacheTTL();
+                var forceRefresh = spec.HasForcedCacheRefreshFlag();
                 cacheHit = true;
                 result = await _cacheProvider.GetAsync(spec.CacheKey!, async () =>
                 {
                     cacheHit = false;
                     return await specificationResult.CountAsync(cancellationToken);
-                }, ttl);
+                }, ttl, forceRefresh);
             }
             else
             {
@@ -176,12 +178,13 @@ namespace Vivarni.DDD.Infrastructure
             if (spec.CacheEnabled)
             {
                 var ttl = spec.GetCacheTTL();
+                var forceRefresh = spec.HasForcedCacheRefreshFlag();
                 cacheHit = true;
                 result = await _cacheProvider.GetAsync(spec.CacheKey!, async () =>
                 {
                     cacheHit = false;
                     return await specificationResult.FirstAsync(cancellationToken);
-                }, ttl);
+                }, ttl, forceRefresh);
             }
             else
             {
@@ -203,12 +206,13 @@ namespace Vivarni.DDD.Infrastructure
             if (spec.CacheEnabled)
             {
                 var ttl = spec.GetCacheTTL();
+                var forceRefresh = spec.HasForcedCacheRefreshFlag();
                 cacheHit = true;
                 result = await _cacheProvider.GetAsync(spec.CacheKey!, async () =>
                 {
                     cacheHit |= false;
                     return await specificationResult.FirstOrDefaultAsync(cancellationToken);
-                }, ttl);
+                }, ttl, forceRefresh);
             }
             else
             {
@@ -230,12 +234,13 @@ namespace Vivarni.DDD.Infrastructure
             if (spec.CacheEnabled)
             {
                 var ttl = spec.GetCacheTTL();
+                var forceRefresh = spec.HasForcedCacheRefreshFlag();
                 cacheHit = true;
                 result = await _cacheProvider.GetAsync(spec.CacheKey!, async () =>
                 {
                     cacheHit = false;
                     return await specificationResult.SingleAsync(cancellationToken);
-                }, ttl);
+                }, ttl, forceRefresh);
             }
             else
             {
@@ -257,12 +262,13 @@ namespace Vivarni.DDD.Infrastructure
             if (spec.CacheEnabled)
             {
                 var ttl = spec.GetCacheTTL();
+                var forceRefresh = spec.HasForcedCacheRefreshFlag();
                 cacheHit = true;
                 result = await _cacheProvider.GetAsync(spec.CacheKey!, async () =>
                 {
                     cacheHit = false;
                     return await specificationResult.SingleOrDefaultAsync(cancellationToken);
-                }, ttl);
+                }, ttl, forceRefresh);
             }
             else
             {

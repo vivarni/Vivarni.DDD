@@ -65,10 +65,10 @@ namespace Vivarni.DDD.Core
         }
 
         /// <summary />
-        public static bool operator !=(DomainType lhs, DomainType rhs) => !(lhs == rhs);
+        public static bool operator !=(DomainType? lhs, DomainType? rhs) => !(lhs == rhs);
 
         /// <summary />
-        public static bool operator ==(DomainType lhs, DomainType rhs)
+        public static bool operator ==(DomainType? lhs, DomainType? rhs)
         {
             if (lhs is null)
             {

@@ -11,11 +11,20 @@ namespace Vivarni.DDD.Core.SpecificationExtensions
     public static class SpecificationExtensions
     {
         /// <summary>
-        /// Sets the caching expiration timespan of the specification,
+        /// Sets the caching expiration timespan of the specification.
         /// </summary>
         public static void SetCacheTTL<T>(this ISpecification<T> spec, TimeSpan ttl)
         {
             spec.Items["CacheTTL"] = ttl;
+        }
+
+
+        /// <summary>
+        /// Sets a flag to force a cache refresh.
+        /// </summary>
+        public static void SetForcedCacheRefreshFlag<T>(this ISpecification<T> spec)
+        {
+            spec.Items["ForcedCacheRefresh"] = true;
         }
 
         /// <summary>
@@ -26,6 +35,15 @@ namespace Vivarni.DDD.Core.SpecificationExtensions
         {
             spec.Items.TryGetValue("CacheTTL", out var ttl);
             return (ttl as TimeSpan?) ?? TimeSpan.MaxValue;
+        }
+
+        /// <summary>
+        /// Returns <see langword="true"/> if a flag has been set for a forced cache refresh.
+        /// </summary>
+        public static bool HasForcedCacheRefreshFlag<T>(this ISpecification<T> spec)
+        {
+            spec.Items.TryGetValue("ForcedCacheRefresh", out var b);
+            return (b as bool?) == true;
         }
     }
 }
