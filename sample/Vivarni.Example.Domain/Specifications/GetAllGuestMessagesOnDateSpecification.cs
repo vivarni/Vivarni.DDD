@@ -1,7 +1,7 @@
 ﻿using Ardalis.Specification;
 using Vivarni.Example.Domain.Entities;
 
-namespace Vivarni.Example.Application.Specifications;
+namespace Vivarni.Example.Domain.Specifications;
 
 public class GetAllGuestMessagesOnDateSpecification : Specification<GuestMessage>
 {

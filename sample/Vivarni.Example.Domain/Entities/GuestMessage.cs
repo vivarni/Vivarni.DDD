@@ -14,13 +14,18 @@ public class GuestMessage : BaseEntity, IAggregateRoot
 
     }
 
-    public GuestMessage(string message, string author)
+    public static GuestMessage GuestMessageCreate(string message, string author)
     {
-        Message = message;
-        CreatedBy = author;
-        LastModifiedBy = author;
+        var result = new GuestMessage()
+            { 
+                Message = message, 
+                CreatedBy = author, 
+                LastModifiedBy = author 
+            };
+        result.Events.Add(new GuestMessageCreatedEvent(result));
+        return result;
     }
-
+    
 }
 public class GuestMessageCreatedEvent : IDomainEvent
 {
@@ -41,8 +46,19 @@ public class GuestMessageCreatedEventHandler : IDomainEventHandler<GuestMessageC
     }
     public async Task HandleAsync(GuestMessageCreatedEvent domainEvent, CancellationToken cancellationToken)
     {
+        GuestMessagesCounter wm = new GuestMessagesCounter();
         var counts = await _guestMessagesCounterrepository.ListAsync(cancellationToken);
+        if(counts.Count == 0)
+        {
+            wm = new GuestMessagesCounter(){ Count = 1, LastEntryBy = domainEvent.GuestMessage.CreatedBy};
+            await _guestMessagesCounterrepository.AddAsync(wm);
+            return;
+        }
         int count = counts.Max(x => x.Count) + 1;
-        await _guestMessagesCounterrepository.AddAsync(new GuestMessagesCounter(count, domainEvent.GuestMessage.CreatedBy));
+        
+        wm.Count = count;
+        wm.LastEntryBy = domainEvent.GuestMessage.CreatedBy;
+        
+        await _guestMessagesCounterrepository.AddAsync(wm);
     }
 }

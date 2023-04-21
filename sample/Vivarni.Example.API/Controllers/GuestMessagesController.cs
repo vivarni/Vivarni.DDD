@@ -29,22 +29,28 @@ public class GuestMessagesController : ControllerBase
     {
         GuestMessage? message = await _guestMessageRepository.GetByIdAsync<Guid>(id, cancellation);
         if (message == null)
-            return NotFound();
-        return Ok(new GuestMessageReadModel(message.Id, message.Message, message.CreatedBy, message.CreationDate));
+        {
+                return NotFound();
+        }
+        var vm = new GuestMessageReadModel(message.Id, message.Message, message.CreatedBy, message.CreationDate);
+        return Ok(vm);
     }
     [HttpPost("guestmessages")]
     public async Task<IActionResult> PostGuestMessageWithDomainEvents([FromBody] GuestMessageWriteModel wm, CancellationToken cancellation)
     {
-        GuestMessage message = new GuestMessage(wm.GuestMessage, wm.CreatedByUser);
-        message.Events.Add(new GuestMessageCreatedEvent(message));
-        return Ok(await _guestMessageRepository.AddAsync(message, cancellation));
+        GuestMessage message = new GuestMessage();
+        message = GuestMessage.GuestMessageCreate(wm.GuestMessage, wm.CreatedByUser);
+        var vm = await _guestMessageRepository.AddAsync(message, cancellation);
+        return Ok(vm);
     }
     [HttpDelete("guestmessages")]
     public async Task<IActionResult> DeleteGuestMessageById([FromBody] Guid id, CancellationToken cancellation)
     {
         GuestMessage? message = await _guestMessageRepository.GetByIdAsync<Guid>(id, cancellation);
         if (message == null)
+        {
             return NotFound();
+        }
         await _guestMessageRepository.DeleteAsync(message, cancellation);
         return Ok();
     }
