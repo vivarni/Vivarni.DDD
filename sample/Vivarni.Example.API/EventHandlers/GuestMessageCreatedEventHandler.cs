@@ -1,4 +1,8 @@
-﻿namespace Vivarni.Example.API.EventHandlers;
+﻿using Vivarni.DDD.Core;
+using Vivarni.DDD.Core.Repositories;
+using Vivarni.Example.Domain.Entities;
+
+namespace Vivarni.Example.API.EventHandlers;
 
 public class GuestMessageCreatedEventHandler : IDomainEventHandler<GuestMessageCreatedEvent>
 {

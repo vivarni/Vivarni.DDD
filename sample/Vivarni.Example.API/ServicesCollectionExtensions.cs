@@ -1,4 +1,7 @@
-﻿namespace Vivarni.Example.API
+﻿using System.Reflection;
+using Vivarni.DDD.Core;
+
+namespace Vivarni.Example.API
 {
     public static class ServicesCollectionExtensions
     {

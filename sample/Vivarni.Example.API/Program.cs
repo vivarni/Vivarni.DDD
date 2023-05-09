@@ -1,7 +1,4 @@
-﻿
-using Vivarni.DDD.Core.Repositories;
-using Vivarni.Example.API.ApiModels;
-using Vivarni.Example.Domain;
+﻿using Vivarni.Example.API;
 using Vivarni.Example.Infrastructure.SQLite;
 
 var builder = WebApplication.CreateBuilder(args);
