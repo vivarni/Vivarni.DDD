@@ -26,7 +26,7 @@ public class GuestMessagesController : ControllerBase
     }
 
     [HttpGet("guestmessages/{id}")]
-    public async Task<IActionResult> GetGuestMessageById([FromBody] Guid id, CancellationToken cancellation)
+    public async Task<IActionResult> GetGuestMessageById(Guid id, CancellationToken cancellation)
     {
         var message = await _guestMessageRepository.GetByIdAsync<Guid>(id, cancellation);
         if (message == null)
@@ -45,7 +45,7 @@ public class GuestMessagesController : ControllerBase
     }
 
     [HttpDelete("guestmessages")]
-    public async Task<IActionResult> DeleteGuestMessageById([FromBody] Guid id, CancellationToken cancellation)
+    public async Task<IActionResult> DeleteGuestMessageById(Guid id, CancellationToken cancellation)
     {
         var message = await _guestMessageRepository.GetByIdAsync<Guid>(id, cancellation);
         if (message == null)
