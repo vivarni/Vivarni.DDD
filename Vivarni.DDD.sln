@@ -1,11 +1,21 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivarni.Example.API", "sample\Vivarni.Example.API\Vivarni.Example.API.csproj", "{0576691B-8F65-4024-B301-0EA7AA3B828B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{347DD870-4F17-4A92-812D-931B433A5E90} = {347DD870-4F17-4A92-812D-931B433A5E90}
+	EndProjectSection
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivarni.DDD.Infrastructure", "src\Vivarni.DDD.Infrastructure\Vivarni.DDD.Infrastructure.csproj", "{14636973-4861-4654-AE07-C57EAABD34D0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivarni.DDD.Core", "src\Vivarni.DDD.Core\Vivarni.DDD.Core.csproj", "{D71D1FBF-86E2-48D7-8532-621FC63076C5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Vivarni.Example", "Vivarni.Example", "{289B6E20-0100-42F5-A41B-DEBFEEE156F7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivarni.Example.Infrastructure.SQLite", "sample\Vivarni.Example.Infrastructure\Vivarni.Example.Infrastructure.SQLite.csproj", "{347DD870-4F17-4A92-812D-931B433A5E90}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivarni.Example.Domain", "sample\Vivarni.Example.Domain\Vivarni.Example.Domain.csproj", "{4A9D4053-EDBC-4223-A2ED-2591B16EEEB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +31,26 @@ Global
 		{D71D1FBF-86E2-48D7-8532-621FC63076C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D71D1FBF-86E2-48D7-8532-621FC63076C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D71D1FBF-86E2-48D7-8532-621FC63076C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{347DD870-4F17-4A92-812D-931B433A5E90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{347DD870-4F17-4A92-812D-931B433A5E90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{347DD870-4F17-4A92-812D-931B433A5E90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{347DD870-4F17-4A92-812D-931B433A5E90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A9D4053-EDBC-4223-A2ED-2591B16EEEB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A9D4053-EDBC-4223-A2ED-2591B16EEEB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A9D4053-EDBC-4223-A2ED-2591B16EEEB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A9D4053-EDBC-4223-A2ED-2591B16EEEB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0576691B-8F65-4024-B301-0EA7AA3B828B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0576691B-8F65-4024-B301-0EA7AA3B828B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0576691B-8F65-4024-B301-0EA7AA3B828B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0576691B-8F65-4024-B301-0EA7AA3B828B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{347DD870-4F17-4A92-812D-931B433A5E90} = {289B6E20-0100-42F5-A41B-DEBFEEE156F7}
+		{4A9D4053-EDBC-4223-A2ED-2591B16EEEB3} = {289B6E20-0100-42F5-A41B-DEBFEEE156F7}
+		{0576691B-8F65-4024-B301-0EA7AA3B828B} = {289B6E20-0100-42F5-A41B-DEBFEEE156F7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6D195989-3704-4AE1-B21B-12D5A768B8A3}
