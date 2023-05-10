@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Diagnostics.Metrics;
+using Microsoft.AspNetCore.Mvc;
 using Vivarni.DDD.Core.Repositories;
 using Vivarni.Example.API.ApiModels;
 using Vivarni.Example.Domain.Entities;
 
 namespace Vivarni.Example.API.Controllers;
 
-[Route("api/[controller]")]
+[Route("api")]
 [ApiController]
 public class GuestMessagesCounterController : ControllerBase
 {
@@ -19,7 +20,11 @@ public class GuestMessagesCounterController : ControllerBase
     public async Task<IActionResult> GetCounters(CancellationToken cancellation)
     {
         var counters = await _counterRepository.ListAsync(cancellation);
-        var vms = counters.Select(counter => new GuestMessageCounterReadModel(counter.Count, counter.LastEntryBy));
-        return Ok(vms);
+        var counter = counters.SingleOrDefault();
+        if (counter == null)
+            return Ok("The domain event hasn't been called yet. Create a new message for the datamigration to take place");
+
+        var vm = new GuestMessageCounterReadModel(counter.Count, counter.LastEntryBy);
+        return Ok(vm);
     }
 }
