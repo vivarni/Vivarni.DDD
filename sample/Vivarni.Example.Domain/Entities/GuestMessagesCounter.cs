@@ -8,5 +8,4 @@ public class GuestMessagesCounter : BaseEntity, IAggregateRoot
     public int Count { get; set; }
     [MaxLength(50)]
     public string LastEntryBy { get; set; }
-       
 }
