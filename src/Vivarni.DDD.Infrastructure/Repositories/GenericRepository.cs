@@ -13,7 +13,7 @@ using Vivarni.DDD.Core.Repositories;
 using Vivarni.DDD.Core.SpecificationExtensions;
 using Vivarni.DDD.Infrastructure.Caching;
 
-namespace Vivarni.DDD.Infrastructure
+namespace Vivarni.DDD.Infrastructure.Repositories
 {
     /// <inheritdoc cref="IGenericRepository{T}"/>
     public class GenericRepository<T> : IGenericRepository<T>
@@ -108,7 +108,7 @@ namespace Vivarni.DDD.Infrastructure
                 throw new Exception($"GenericRepository method {nameof(Enumerate)} does not support cached specifications.");
 
             var specificationResult = ApplySpecification(spec);
-            return specificationResult.AsEnumerable<T>();
+            return specificationResult.AsEnumerable();
         }
 
         /// <inheritdoc/>

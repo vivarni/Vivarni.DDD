@@ -2,7 +2,6 @@
 using Vivarni.DDD.Core.Repositories;
 using Vivarni.Example.API.ApiModels;
 using Vivarni.Example.Domain.Entities;
-using System.Linq;
 
 namespace Vivarni.Example.API.Controllers;
 

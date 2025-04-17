@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Ardalis.Specification;
 using Vivarni.DDD.Core;
-using Vivarni.DDD.Core.Repositories;
 
 namespace Vivarni.Example.Domain.Entities;
 
@@ -17,15 +15,15 @@ public class GuestMessage : BaseEntity, IAggregateRoot
     public static GuestMessage GuestMessageCreate(string message, string author)
     {
         var result = new GuestMessage()
-            { 
-                Message = message, 
-                CreatedBy = author, 
-                LastModifiedBy = author 
-            };
+        {
+            Message = message,
+            CreatedBy = author,
+            LastModifiedBy = author
+        };
         result.Events.Add(new GuestMessageCreatedEvent(result));
         return result;
     }
-    
+
 }
 public class GuestMessageCreatedEvent : IDomainEvent
 {

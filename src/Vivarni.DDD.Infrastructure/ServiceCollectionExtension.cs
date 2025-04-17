@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Vivarni.DDD.Core.Repositories;
 using Vivarni.DDD.Infrastructure.Caching;
 using Vivarni.DDD.Infrastructure.DomainEvents;
+using Vivarni.DDD.Infrastructure.Repositories;
 
 namespace Vivarni.DDD.Infrastructure
 {

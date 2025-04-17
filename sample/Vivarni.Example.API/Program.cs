@@ -1,4 +1,4 @@
-﻿using Vivarni.Example.API;
+﻿using Vivarni.Example.Domain;
 using Vivarni.Example.Infrastructure.SQLite;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,4 +16,4 @@ app.UseSwagger();
 app.UseSwaggerUI();
 app.UseDeveloperExceptionPage();
 app.MapControllers();
-app.Run();
+await app.RunAsync();

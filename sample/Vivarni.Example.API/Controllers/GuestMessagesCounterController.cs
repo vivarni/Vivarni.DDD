@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.Metrics;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Vivarni.DDD.Core.Repositories;
 using Vivarni.Example.API.ApiModels;
 using Vivarni.Example.Domain.Entities;
