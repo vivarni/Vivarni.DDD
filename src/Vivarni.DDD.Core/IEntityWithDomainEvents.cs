@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Ardalis.Specification;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Vivarni.DDD.Core;
 
@@ -9,7 +9,7 @@ namespace Vivarni.DDD.Core;
 public interface IEntityWithDomainEvents
 {
     /// <summary>
-    /// List of events carried by this <see cref="IEntity{TId}"/>.
+    /// List of events carried by this entity.
     /// This property should be ignored by Entity Framework.
     /// </summary>
     public List<IDomainEvent> Events { get; }
@@ -22,4 +22,5 @@ public interface IEntityWithDomainEvents
 /// database. Such a mechanism is provided in <c>Vivarni.Domain.Infrastructure</c>.
 /// </summary>
 /// <seealso href="https://github.com/vivarni/vivarni.domain"/>
-public interface IEntityWithDomainEvents<TId> : IEntity<TId>, IEntityWithDomainEvents { }
+[Obsolete("Replace the usage of this generic interface with the non-generic variant. Will be removed in future releases.")]
+public interface IEntityWithDomainEvents<TId> : IEntityWithDomainEvents { }
