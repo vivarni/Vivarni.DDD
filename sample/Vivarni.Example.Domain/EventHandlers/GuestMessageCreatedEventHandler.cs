@@ -2,7 +2,7 @@
 using Vivarni.DDD.Core.Repositories;
 using Vivarni.Example.Domain.Entities;
 
-namespace Vivarni.Example.API.EventHandlers;
+namespace Vivarni.Example.Domain.EventHandlers;
 
 /// <summary>
 /// Domain event handler to update our guest message counter. The guest message counter keeps

@@ -24,7 +24,7 @@ public static class InfrastructureServicesRegistration
             .AddClasses(classes => classes.AssignableTo(typeof(IGenericRepository<>)))
             .AsImplementedInterfaces()
             .WithScopedLifetime());
-            services.Scan(scan => scan
+        services.Scan(scan => scan
             .FromAssemblies(Assembly.GetExecutingAssembly())
             .AddClasses(classes => classes.AssignableTo(typeof(IDomainEventHandler<>)))
             .AsImplementedInterfaces()

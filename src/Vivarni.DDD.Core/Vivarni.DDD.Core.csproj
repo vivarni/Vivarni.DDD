@@ -16,7 +16,7 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <Description>Fundamental building blocks for creating the domain layer in a DDD software design approach.</Description>
     <PackageTags>ddd;domain driven design;specification;aggregate</PackageTags>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>11.0</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Nullable>enable</Nullable>
   </PropertyGroup>

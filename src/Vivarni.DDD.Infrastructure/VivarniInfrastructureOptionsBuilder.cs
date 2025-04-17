@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using Vivarni.DDD.Core.Repositories;
 using Vivarni.DDD.Infrastructure.Caching;
+using Vivarni.DDD.Infrastructure.Repositories;
 
 namespace Vivarni.DDD.Infrastructure
 {
