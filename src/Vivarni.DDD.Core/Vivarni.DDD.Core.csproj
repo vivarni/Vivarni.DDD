@@ -26,7 +26,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ardalis.Specification" Version="7.0.0" />
+    <PackageReference Include="Ardalis.Specification" Version="9.0.1" />
   </ItemGroup>
 
   <ItemGroup>
