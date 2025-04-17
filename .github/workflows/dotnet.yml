@@ -29,10 +29,13 @@ jobs:
       - name: Test
         run: dotnet test --no-build --verbosity normal
 
+      - name: Debug
+        run: echo ${{github.event_name}}
+
       # publish Core on version change
       - name: publish Core on version change
         id: publish_core
-        if: success()
+        if: github.event_name == 'push' && success()
         uses: Clivar/publish-nuget@master
         with:
           # Filepath of the project to be packaged, relative to root of repository
@@ -65,7 +68,7 @@ jobs:
       # publish Infrastructure on version change
       - name: publish Infrastructure on version change
         id: publish_infrastructure
-        if: success()
+        if: github.event_name == 'push' && success()
         uses: Clivar/publish-nuget@master
         with:
           # Filepath of the project to be packaged, relative to root of repository
