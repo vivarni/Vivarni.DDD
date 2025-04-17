@@ -29,9 +29,6 @@ jobs:
       - name: Test
         run: dotnet test --no-build --verbosity normal
 
-      - name: Debug
-        run: echo ${{github.event_name}}
-
       # publish Core on version change
       - name: publish Core on version change
         id: publish_core
