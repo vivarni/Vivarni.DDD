@@ -8,6 +8,7 @@ namespace Vivarni.DDD.Core
     public interface IEntityWithDomainEvents
     {
         /// <summary>
+        /// List of events carried by this entity.
         /// This property should be ignored by Entity Framework.
         /// </summary>
         public List<IDomainEvent> Events { get; }
