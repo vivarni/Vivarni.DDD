@@ -16,31 +16,18 @@ using Vivarni.DDD.Infrastructure.Caching;
 namespace Vivarni.DDD.Infrastructure.Repositories
 {
     /// <inheritdoc cref="IGenericRepository{T}"/>
-    public class GenericRepository<T> : IGenericRepository<T>
+    /// <summary>
+    /// We use the standard Microsoft logger in order to be portable between solutions which
+    /// may use other logging frameworks than Serilog. All logs are routed to serilog anyways,
+    /// so no worries there ;-)
+    /// </summary>
+    public class GenericRepository<T>(ILogger<GenericRepository<T>> logger, ICachingProvider cacheProvider, DbContext ctx) : IGenericRepository<T>
         where T : class, IAggregateRoot
     {
-        private readonly DbContext _ctx;
+        private readonly DbContext ctx;
 
         private const string LOG_MSG_DFLT =
             "{GenericRepositoryMethod} execution for {GenericRepositoryType} took {GenericRepositoryMilliseconds} ms";
-
-        /// <summary>
-        /// We use the standard Microsoft logger in order to be portable between solutions which
-        /// may use other logging frameworks than Serilog. All logs are routed to serilog anyways,
-        /// so no worries there ;-)
-        /// </summary>
-        private readonly ILogger<GenericRepository<T>> _logger;
-        private readonly ICachingProvider _cacheProvider;
-
-        /// <summary>
-        /// Creates a new instance of this class.
-        /// </summary>
-        public GenericRepository(DbContext ctx, ILogger<GenericRepository<T>> logger, ICachingProvider cachingProvider)
-        {
-            _ctx = ctx;
-            _logger = logger;
-            _cacheProvider = cachingProvider;
-        }
 
         private void Log(ISpecification<T> spec, string methodName, long milliseconds, bool? cacheHit)
         {
@@ -49,7 +36,7 @@ namespace Vivarni.DDD.Infrastructure.Repositories
                 "{GenericRepositoryMethod} execution for {GenericRepositoryType} took {GenericRepositoryMilliseconds} ms using specification {GenericRepositorySpecification} " +
                 "with CacheEnabled {GenericRepositoryCacheEnabled} and CacheHit {GenericRepositoryCacheHit}";
 
-            _logger.LogInformation(messageTemplate, methodName, typeof(T), milliseconds, specName, spec.CacheEnabled, cacheHit);
+            logger.LogInformation(messageTemplate, methodName, typeof(T), milliseconds, specName, spec.CacheEnabled, cacheHit);
         }
 
         /// <inheritdoc/>
@@ -57,8 +44,8 @@ namespace Vivarni.DDD.Infrastructure.Repositories
             where TId : notnull
         {
             var sw = Stopwatch.StartNew();
-            var result = await _ctx.Set<T>().FindAsync(new object[] { id }, cancellationToken);
-            _logger.LogInformation(LOG_MSG_DFLT + "Id={GenericQueryId}", nameof(GetByIdAsync), typeof(T), sw.ElapsedMilliseconds, id);
+            var result = await ctx.Set<T>().FindAsync(new object[] { id }, cancellationToken);
+            logger.LogInformation(LOG_MSG_DFLT + "Id={GenericQueryId}", nameof(GetByIdAsync), typeof(T), sw.ElapsedMilliseconds, id);
 
             return result;
         }
@@ -67,8 +54,8 @@ namespace Vivarni.DDD.Infrastructure.Repositories
         public async Task<IReadOnlyList<T>> ListAsync(CancellationToken cancellationToken = default)
         {
             var sw = Stopwatch.StartNew();
-            var result = await _ctx.Set<T>().ToListAsync(cancellationToken);
-            _logger.LogInformation(LOG_MSG_DFLT, nameof(ListAsync), typeof(T), sw.ElapsedMilliseconds);
+            var result = await ctx.Set<T>().ToListAsync(cancellationToken);
+            logger.LogInformation(LOG_MSG_DFLT, nameof(ListAsync), typeof(T), sw.ElapsedMilliseconds);
 
             return result;
         }
@@ -86,7 +73,7 @@ namespace Vivarni.DDD.Infrastructure.Repositories
                 var ttl = spec.GetCacheTTL();
                 var forceRefresh = spec.HasForcedCacheRefreshFlag();
                 cacheHit = true;
-                result = await _cacheProvider.GetAsync(spec.CacheKey!, async () =>
+                result = await cacheProvider.GetAsync(spec.CacheKey!, async () =>
                 {
                     cacheHit = false;
                     return await specificationResult.ToListAsync(cancellationToken);
@@ -124,7 +111,7 @@ namespace Vivarni.DDD.Infrastructure.Repositories
                 var ttl = spec.GetCacheTTL();
                 var forceRefresh = spec.HasForcedCacheRefreshFlag();
                 cacheHit = true;
-                result = await _cacheProvider.GetAsync(spec.CacheKey!, async () =>
+                result = await cacheProvider.GetAsync(spec.CacheKey!, async () =>
                 {
                     cacheHit = false;
                     return await specificationResult.CountAsync(cancellationToken);
@@ -143,9 +130,9 @@ namespace Vivarni.DDD.Infrastructure.Repositories
         public virtual async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
         {
             var sw = Stopwatch.StartNew();
-            await _ctx.Set<T>().AddAsync(entity, cancellationToken);
-            await _ctx.SaveChangesAsync(cancellationToken);
-            _logger.LogInformation(LOG_MSG_DFLT, nameof(AddAsync), typeof(T), sw.ElapsedMilliseconds);
+            await ctx.Set<T>().AddAsync(entity, cancellationToken);
+            await ctx.SaveChangesAsync(cancellationToken);
+            logger.LogInformation(LOG_MSG_DFLT, nameof(AddAsync), typeof(T), sw.ElapsedMilliseconds);
 
             return entity;
         }
@@ -154,17 +141,17 @@ namespace Vivarni.DDD.Infrastructure.Repositories
         public virtual async Task UpdateAsync(T entity, CancellationToken cancellationToken = default)
         {
             var sw = Stopwatch.StartNew();
-            await _ctx.SaveChangesAsync(cancellationToken);
-            _logger.LogInformation(LOG_MSG_DFLT, nameof(UpdateAsync), typeof(T), sw.ElapsedMilliseconds);
+            await ctx.SaveChangesAsync(cancellationToken);
+            logger.LogInformation(LOG_MSG_DFLT, nameof(UpdateAsync), typeof(T), sw.ElapsedMilliseconds);
         }
 
         /// <inheritdoc/>
         public virtual async Task DeleteAsync(T entity, CancellationToken cancellationToken = default)
         {
             var sw = Stopwatch.StartNew();
-            _ctx.Set<T>().Remove(entity);
-            await _ctx.SaveChangesAsync(cancellationToken);
-            _logger.LogInformation(LOG_MSG_DFLT, nameof(DeleteAsync), typeof(T), sw.ElapsedMilliseconds);
+            ctx.Set<T>().Remove(entity);
+            await ctx.SaveChangesAsync(cancellationToken);
+            logger.LogInformation(LOG_MSG_DFLT, nameof(DeleteAsync), typeof(T), sw.ElapsedMilliseconds);
         }
 
         /// <inheritdoc/>
@@ -180,7 +167,7 @@ namespace Vivarni.DDD.Infrastructure.Repositories
                 var ttl = spec.GetCacheTTL();
                 var forceRefresh = spec.HasForcedCacheRefreshFlag();
                 cacheHit = true;
-                result = await _cacheProvider.GetAsync(spec.CacheKey!, async () =>
+                result = await cacheProvider.GetAsync(spec.CacheKey!, async () =>
                 {
                     cacheHit = false;
                     return await specificationResult.FirstAsync(cancellationToken);
@@ -208,7 +195,7 @@ namespace Vivarni.DDD.Infrastructure.Repositories
                 var ttl = spec.GetCacheTTL();
                 var forceRefresh = spec.HasForcedCacheRefreshFlag();
                 cacheHit = true;
-                result = await _cacheProvider.GetAsync(spec.CacheKey!, async () =>
+                result = await cacheProvider.GetAsync(spec.CacheKey!, async () =>
                 {
                     cacheHit |= false;
                     return await specificationResult.FirstOrDefaultAsync(cancellationToken);
@@ -236,7 +223,7 @@ namespace Vivarni.DDD.Infrastructure.Repositories
                 var ttl = spec.GetCacheTTL();
                 var forceRefresh = spec.HasForcedCacheRefreshFlag();
                 cacheHit = true;
-                result = await _cacheProvider.GetAsync(spec.CacheKey!, async () =>
+                result = await cacheProvider.GetAsync(spec.CacheKey!, async () =>
                 {
                     cacheHit = false;
                     return await specificationResult.SingleAsync(cancellationToken);
@@ -264,7 +251,7 @@ namespace Vivarni.DDD.Infrastructure.Repositories
                 var ttl = spec.GetCacheTTL();
                 var forceRefresh = spec.HasForcedCacheRefreshFlag();
                 cacheHit = true;
-                result = await _cacheProvider.GetAsync(spec.CacheKey!, async () =>
+                result = await cacheProvider.GetAsync(spec.CacheKey!, async () =>
                 {
                     cacheHit = false;
                     return await specificationResult.SingleOrDefaultAsync(cancellationToken);
@@ -283,16 +270,16 @@ namespace Vivarni.DDD.Infrastructure.Repositories
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)
         {
             var evaluator = SpecificationEvaluator.Default;
-            return evaluator.GetQuery(_ctx.Set<T>().AsQueryable(), spec);
+            return evaluator.GetQuery(ctx.Set<T>().AsQueryable(), spec);
         }
 
         /// <inheritdoc/>
         public async Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
         {
             var sw = Stopwatch.StartNew();
-            await _ctx.Set<T>().AddRangeAsync(entities, cancellationToken);
-            await _ctx.SaveChangesAsync(cancellationToken);
-            _logger.LogInformation(LOG_MSG_DFLT, nameof(AddRangeAsync), typeof(T), sw.ElapsedMilliseconds);
+            await ctx.Set<T>().AddRangeAsync(entities, cancellationToken);
+            await ctx.SaveChangesAsync(cancellationToken);
+            logger.LogInformation(LOG_MSG_DFLT, nameof(AddRangeAsync), typeof(T), sw.ElapsedMilliseconds);
 
             return entities;
         }
@@ -301,17 +288,17 @@ namespace Vivarni.DDD.Infrastructure.Repositories
         public async Task UpdateRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
         {
             var sw = Stopwatch.StartNew();
-            await _ctx.SaveChangesAsync(cancellationToken);
-            _logger.LogInformation(LOG_MSG_DFLT, nameof(UpdateRangeAsync), typeof(T), sw.ElapsedMilliseconds);
+            await ctx.SaveChangesAsync(cancellationToken);
+            logger.LogInformation(LOG_MSG_DFLT, nameof(UpdateRangeAsync), typeof(T), sw.ElapsedMilliseconds);
         }
 
         /// <inheritdoc/>
         public async Task DeleteRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
         {
             var sw = Stopwatch.StartNew();
-            _ctx.Set<T>().RemoveRange(entities);
-            await _ctx.SaveChangesAsync(cancellationToken);
-            _logger.LogInformation(LOG_MSG_DFLT, nameof(DeleteRangeAsync), typeof(T), sw.ElapsedMilliseconds);
+            ctx.Set<T>().RemoveRange(entities);
+            await ctx.SaveChangesAsync(cancellationToken);
+            logger.LogInformation(LOG_MSG_DFLT, nameof(DeleteRangeAsync), typeof(T), sw.ElapsedMilliseconds);
         }
     }
 }
