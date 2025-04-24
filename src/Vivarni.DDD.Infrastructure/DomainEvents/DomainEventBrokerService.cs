@@ -19,20 +19,8 @@ namespace Vivarni.DDD.Infrastructure.DomainEvents
     }
 
     /// <inheritdoc cref="IDomainEventBrokerService"/>
-    public class DomainEventBrokerService : IDomainEventBrokerService
+    public class DomainEventBrokerService(Dictionary<Type, IReadOnlyCollection<IDomainEventHandler>> handlers, IServiceProvider serviceProvider) : IDomainEventBrokerService
     {
-        private readonly Dictionary<Type, IReadOnlyCollection<IDomainEventHandler>> _handlers;
-        private readonly IServiceProvider _serviceProvider;
-
-        /// <summary>
-        /// Creates an instance of this class.
-        /// </summary>
-        public DomainEventBrokerService(IServiceProvider serviceProvider)
-        {
-            _serviceProvider = serviceProvider;
-            _handlers = new Dictionary<Type, IReadOnlyCollection<IDomainEventHandler>>();
-        }
-
         /// <inheritdoc/>
         public async Task PublishEventsAsync(IDomainEvent[] events, CancellationToken cancellationToken)
         {
@@ -66,13 +54,13 @@ namespace Vivarni.DDD.Infrastructure.DomainEvents
         /// <returns>A collection of event handler instances.</returns>
         private IReadOnlyCollection<TEventHandler> ResolveEventHandlers<TEventHandler>()
         {
-            if (!_handlers.ContainsKey(typeof(TEventHandler)))
+            if (!handlers.ContainsKey(typeof(TEventHandler)))
             {
-                var handlers = (IReadOnlyCollection<IDomainEventHandler>)_serviceProvider.GetServices<TEventHandler>();
-                _handlers[typeof(TEventHandler)] = handlers;
+                var services = (IReadOnlyCollection<IDomainEventHandler>)serviceProvider.GetServices<TEventHandler>();
+                handlers[typeof(TEventHandler)] = services;
             }
 
-            return (IReadOnlyCollection<TEventHandler>)_handlers[typeof(TEventHandler)];
+            return (IReadOnlyCollection<TEventHandler>)handlers[typeof(TEventHandler)];
         }
     }
 }
