@@ -210,7 +210,7 @@ namespace Vivarni.DDD.Infrastructure.Repositories
                 cacheHit = true;
                 result = await _cacheProvider.GetAsync(spec.CacheKey!, async () =>
                 {
-                    cacheHit |= false;
+                    cacheHit = false;
                     return await specificationResult.FirstOrDefaultAsync(cancellationToken);
                 }, ttl, forceRefresh);
             }
