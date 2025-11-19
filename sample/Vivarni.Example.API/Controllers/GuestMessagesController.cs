@@ -7,19 +7,13 @@ namespace Vivarni.Example.API.Controllers;
 
 [Route("api")]
 [ApiController]
-public class GuestMessagesController : ControllerBase
+public class GuestMessagesController(IGenericRepository<GuestMessage> repositoryBase) : ControllerBase
 {
-    private readonly IGenericRepository<GuestMessage> _guestMessageRepository;
-
-    public GuestMessagesController(IGenericRepository<GuestMessage> repositoryBase)
-    {
-        _guestMessageRepository = repositoryBase;
-    }
 
     [HttpGet("guestmessages")]
     public async Task<IActionResult> GetAllGuestMessages(CancellationToken cancellation)
     {
-        var messages = await _guestMessageRepository.ListAsync(cancellation);
+        var messages = await repositoryBase.ListAsync(cancellation);
         var vms = messages.Select(message => new GuestMessageReadModel(message.Id, message.Message, message.CreatedBy, message.CreationDate));
         return Ok(vms);
     }
@@ -27,7 +21,7 @@ public class GuestMessagesController : ControllerBase
     [HttpGet("guestmessages/{id}")]
     public async Task<IActionResult> GetGuestMessageById(Guid id, CancellationToken cancellation)
     {
-        var message = await _guestMessageRepository.GetByIdAsync<Guid>(id, cancellation);
+        var message = await repositoryBase.GetByIdAsync<Guid>(id, cancellation);
         if (message == null)
             return NotFound();
 
@@ -39,18 +33,18 @@ public class GuestMessagesController : ControllerBase
     public async Task<IActionResult> PostGuestMessageWithDomainEvents([FromBody] GuestMessageWriteModel wm, CancellationToken cancellation)
     {
         var message = GuestMessage.GuestMessageCreate(wm.GuestMessage, wm.CreatedByUser);
-        var vm = await _guestMessageRepository.AddAsync(message, cancellation);
+        var vm = await repositoryBase.AddAsync(message, cancellation);
         return Ok(vm);
     }
 
     [HttpDelete("guestmessages")]
     public async Task<IActionResult> DeleteGuestMessageById(Guid id, CancellationToken cancellation)
     {
-        var message = await _guestMessageRepository.GetByIdAsync<Guid>(id, cancellation);
+        var message = await repositoryBase.GetByIdAsync<Guid>(id, cancellation);
         if (message == null)
             return NotFound();
 
-        await _guestMessageRepository.DeleteAsync(message, cancellation);
+        await repositoryBase.DeleteAsync(message, cancellation);
         return Ok();
     }
 }
